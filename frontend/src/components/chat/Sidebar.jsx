@@ -71,10 +71,13 @@ function ChatItem({ chat, isActive, onSelect, onDelete }) {
   };
 
   return (
-    <button
+    <div
       onClick={onSelect}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && onSelect()}
       className={`
-        w-full group flex items-center gap-3 px-3 py-2.5 rounded-xl text-left
+        w-full group flex items-center gap-3 px-3 py-2.5 rounded-xl text-left cursor-pointer
         transition-all duration-200
         ${isActive 
           ? 'bg-white/10 border border-white/10' 
@@ -95,6 +98,6 @@ function ChatItem({ chat, isActive, onSelect, onDelete }) {
       >
         <Trash2 size={14} className="text-muted-foreground hover:text-red-400" />
       </button>
-    </button>
+    </div>
   );
 }
