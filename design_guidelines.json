@@ -1,0 +1,156 @@
+{
+  "identity": {
+    "name": "Aether Labs",
+    "archetype": "The Visionary / The Architect",
+    "vibe": "Ethereal, Precision, Deep Tech, Obsidian",
+    "mission": "To provide an AI chat experience that feels like interacting with a higher intelligence—clean, distraction-free, and aesthetically profound."
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Outfit, sans-serif",
+      "body": "Manrope, sans-serif",
+      "code": "JetBrains Mono, monospace"
+    },
+    "weights": {
+      "headings": "600 (SemiBold) or 500 (Medium) - Avoid 700+ for a cleaner look",
+      "body": "400 (Regular)",
+      "strong": "600 (SemiBold)"
+    },
+    "tracking": {
+      "headings": "tracking-tight (-0.02em)",
+      "overline": "tracking-widest (0.1em)"
+    },
+    "scale": {
+      "h1": "text-4xl md:text-5xl lg:text-6xl",
+      "h2": "text-3xl md:text-4xl",
+      "h3": "text-2xl",
+      "body_lg": "text-lg",
+      "body": "text-base",
+      "caption": "text-sm text-muted-foreground"
+    },
+    "import_url": "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+  },
+  "colors": {
+    "theme": "dark",
+    "palette": {
+      "background": {
+        "default": "#050505",
+        "paper": "#0A0A0A",
+        "subtle": "#121212"
+      },
+      "foreground": {
+        "default": "#FAFAFA",
+        "muted": "#A1A1AA",
+        "subtle": "#52525B"
+      },
+      "primary": {
+        "DEFAULT": "#6366F1",
+        "foreground": "#FFFFFF",
+        "glow": "0 0 20px rgba(99, 102, 241, 0.5)"
+      },
+      "accent": {
+        "DEFAULT": "#A855F7",
+        "foreground": "#FFFFFF"
+      },
+      "border": {
+        "DEFAULT": "#27272A",
+        "subtle": "#18181B"
+      },
+      "status": {
+        "success": "#10B981",
+        "error": "#EF4444",
+        "warning": "#F59E0B"
+      }
+    },
+    "gradients": {
+      "aether_glow": "linear-gradient(135deg, #6366F1 0%, #A855F7 100%)",
+      "subtle_overlay": "linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,1) 100%)"
+    }
+  },
+  "layout": {
+    "spacing": {
+      "container_padding": "p-4 md:p-8 lg:p-12",
+      "section_gap": "gap-8 md:gap-12",
+      "item_gap": "gap-4"
+    },
+    "grid": {
+      "dashboard": "grid grid-cols-1 md:grid-cols-[280px_1fr] h-screen overflow-hidden"
+    },
+    "containers": {
+      "chat_wrapper": "max-w-3xl mx-auto w-full",
+      "sidebar": "hidden md:flex flex-col w-[280px] border-r border-white/5 bg-black/50 backdrop-blur-xl"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all duration-300 rounded-full px-6 py-2 font-medium",
+      "secondary": "bg-white/5 text-foreground hover:bg-white/10 border border-white/10 backdrop-blur-sm transition-all duration-200 rounded-full px-6 py-2",
+      "ghost": "hover:bg-white/5 text-muted-foreground hover:text-foreground transition-colors rounded-md px-3 py-2"
+    },
+    "inputs": {
+      "chat_input": "bg-white/5 border-white/10 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 rounded-2xl px-4 py-3 text-base shadow-inner placeholder:text-white/20 transition-all duration-300"
+    },
+    "cards": {
+      "glass": "bg-white/5 border border-white/10 backdrop-blur-md rounded-xl shadow-xl",
+      "flat": "bg-[#0A0A0A] border border-white/5 rounded-xl"
+    },
+    "chat_bubbles": {
+      "user": "bg-primary text-white rounded-2xl rounded-tr-sm px-5 py-3 max-w-[85%] self-end shadow-lg shadow-primary/10",
+      "ai": "bg-white/5 border border-white/5 text-foreground rounded-2xl rounded-tl-sm px-5 py-3 max-w-[85%] self-start backdrop-blur-sm"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": {
+      "heavy": "bg-black/60 backdrop-blur-xl border-b border-white/5",
+      "light": "bg-white/5 backdrop-blur-md border border-white/10"
+    },
+    "shadows": {
+      "glow": "shadow-[0_0_20px_rgba(99,102,241,0.15)]",
+      "float": "shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
+    },
+    "borders": {
+      "subtle": "border border-white/5",
+      "highlight": "border border-primary/20"
+    }
+  },
+  "motion": {
+    "transitions": {
+      "default": "transition-all duration-300 ease-out",
+      "hover": "transition-colors duration-200 ease-in-out"
+    },
+    "animations": {
+      "fade_in": "animate-in fade-in duration-500",
+      "slide_up": "animate-in slide-in-from-bottom-4 duration-500 fade-in"
+    }
+  },
+  "assets": {
+    "images": {
+      "login_bg": "https://images.unsplash.com/photo-1768329051020-489b1bc3f507?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "logo_placeholder": "https://images.unsplash.com/photo-1759437857324-fca900e82c27?crop=entropy&cs=srgb&fm=jpg&q=85"
+    },
+    "icons": "Use lucide-react for all UI icons. Use simple, thin strokes (stroke-width={1.5})."
+  },
+  "accessibility": {
+    "contrast": "Ensure all text has at least 4.5:1 contrast ratio against background.",
+    "focus_states": "Visible focus rings on all interactive elements (ring-2 ring-primary/50).",
+    "aria": "Use aria-label for icon-only buttons."
+  },
+  "instructions_to_main_agent": [
+    "1. SETUP: Update tailwind.config.js to include the custom colors (obsidian, primary indigo) and fonts.",
+    "2. FONTS: Add the Google Fonts import to index.css immediately.",
+    "3. LAYOUT: Implement the 'Dashboard Grid' layout. Sidebar on left (collapsible on mobile), Chat area on right.",
+    "4. CHAT UI: The chat area should have a sticky bottom input. The messages list should scroll behind it.",
+    "5. MARKDOWN: Use 'react-markdown' with 'remark-gfm' for rendering AI responses. Style the code blocks with a dark theme (e.g., dracula or atom-dark).",
+    "6. SIDEBAR: The sidebar should list 'Recent Chats'. Use a glassmorphic effect for the sidebar background.",
+    "7. EMPTY STATE: When no chat is selected, show a welcoming 'Hero' section in the center with the Aether logo and suggested prompts.",
+    "8. TRACING BEAM: If possible, add a subtle glowing border effect to the active chat input.",
+    "9. DATA-TESTID: Add data-testid to all buttons (e.g., 'send-button', 'new-chat-button') and inputs."
+  ],
+  "universal_guidelines": [
+    "Avoid generic 'Inter' everywhere. Use 'Outfit' for headings to give it character.",
+    "Do not use pure black (#000000). Use #050505 or #0A0A0A for depth.",
+    "Add 'backdrop-blur' to sticky headers and floating elements.",
+    "Use 'gap-4' or 'gap-6' for comfortable spacing in lists.",
+    "Ensure the 'Copy Code' button in code blocks is visible and accessible."
+  ]
+}
