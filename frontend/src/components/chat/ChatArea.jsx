@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Loader2 } from 'lucide-react';
-import { Button } from '../../components/ui/button';
+import { Send, Loader2, ArrowUp } from 'lucide-react';
 import { ScrollArea } from '../../components/ui/scroll-area';
 import MessageBubble from './MessageBubble';
 
@@ -39,7 +38,6 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage 
   const handleInputChange = (e) => {
     setInput(e.target.value);
     
-    // Auto-resize textarea
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 200) + 'px';
@@ -49,34 +47,35 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage 
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center" data-testid="chat-loading">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+        <Loader2 className="w-6 h-6 animate-spin text-white/40" />
       </div>
     );
   }
 
   return (
-    <div className="flex-1 flex flex-col h-full" data-testid="chat-area">
-      {/* Messages */}
-      <ScrollArea className="flex-1 px-4">
-        <div className="max-w-3xl mx-auto py-6 space-y-6">
+    <div className="flex-1 flex flex-col h-full bg-[#050505]" data-testid="chat-area">
+      {/* Messages - ChatGPT style */}
+      <ScrollArea className="flex-1">
+        <div className="max-w-3xl mx-auto px-4 md:px-6 py-4">
           {chat?.messages?.map((message, index) => (
             <MessageBubble 
               key={message.id || index} 
               message={message}
-              isLast={index === chat.messages.length - 1}
             />
           ))}
           
           {sendingMessage && (
-            <div className="flex items-start gap-4" data-testid="typing-indicator">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shrink-0">
-                <span className="text-white text-xs font-bold">A</span>
-              </div>
-              <div className="bg-white/5 border border-white/5 rounded-2xl rounded-tl-sm px-5 py-3">
-                <div className="flex gap-1.5">
-                  <span className="w-2 h-2 bg-indigo-400 rounded-full typing-dot"></span>
-                  <span className="w-2 h-2 bg-indigo-400 rounded-full typing-dot"></span>
-                  <span className="w-2 h-2 bg-indigo-400 rounded-full typing-dot"></span>
+            <div className="py-4" data-testid="typing-indicator">
+              <div className="flex gap-3 md:gap-4">
+                <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shrink-0">
+                  <span className="text-white text-xs font-semibold">A</span>
+                </div>
+                <div className="flex-1 pt-1">
+                  <div className="flex gap-1">
+                    <span className="w-2 h-2 bg-white/40 rounded-full typing-dot"></span>
+                    <span className="w-2 h-2 bg-white/40 rounded-full typing-dot"></span>
+                    <span className="w-2 h-2 bg-white/40 rounded-full typing-dot"></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -86,37 +85,35 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage 
         </div>
       </ScrollArea>
 
-      {/* Input area */}
-      <div className="border-t border-white/5 bg-black/60 backdrop-blur-xl p-4">
+      {/* Input area - ChatGPT style */}
+      <div className="p-3 md:p-4 bg-[#050505]">
         <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
-          <div className="relative flex items-end gap-3">
-            <div className="flex-1 relative">
-              <textarea
-                ref={textareaRef}
-                value={input}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                placeholder="Message Aether..."
-                rows={1}
-                className="w-full bg-white/5 border border-white/10 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 rounded-2xl px-4 py-3 pr-12 text-base resize-none placeholder:text-white/30 transition-all duration-300 outline-none"
-                disabled={sendingMessage}
-                data-testid="message-input"
-              />
-            </div>
-            <Button
+          <div className="relative bg-[#0f0f0f] border border-white/10 rounded-2xl shadow-lg">
+            <textarea
+              ref={textareaRef}
+              value={input}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              placeholder="Message Aether..."
+              rows={1}
+              className="w-full bg-transparent px-4 py-3 pr-12 text-[15px] resize-none placeholder:text-white/30 focus:outline-none max-h-[200px]"
+              disabled={sendingMessage}
+              data-testid="message-input"
+            />
+            <button
               type="submit"
               disabled={!input.trim() || sendingMessage}
-              className="h-12 w-12 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20 transition-all duration-300"
+              className="absolute right-2 bottom-2 p-1.5 rounded-lg bg-white text-black disabled:bg-white/20 disabled:text-white/40 disabled:cursor-not-allowed transition-colors"
               data-testid="send-button"
             >
               {sendingMessage ? (
-                <Loader2 size={20} className="animate-spin" />
+                <Loader2 size={18} className="animate-spin" />
               ) : (
-                <Send size={20} />
+                <ArrowUp size={18} strokeWidth={2.5} />
               )}
-            </Button>
+            </button>
           </div>
-          <p className="text-xs text-muted-foreground/50 text-center mt-3">
+          <p className="text-[11px] text-white/30 text-center mt-2 px-2">
             Aether can make mistakes. Consider checking important information.
           </p>
         </form>
