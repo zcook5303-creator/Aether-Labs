@@ -15,14 +15,11 @@ export default function ChatPage() {
   const [loading, setLoading] = useState(false);
   const [sendingMessage, setSendingMessage] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const messagesEndRef = useRef(null);
 
-  // Fetch all chats on mount
   useEffect(() => {
     loadChats();
   }, []);
 
-  // Load specific chat when chatId changes
   useEffect(() => {
     if (chatId) {
       loadChat(chatId);
@@ -84,7 +81,6 @@ export default function ChatPage() {
   const handleSendMessage = async (content) => {
     if (!currentChat || sendingMessage) return;
 
-    // Optimistically add user message
     const userMessage = {
       id: Date.now().toString(),
       role: 'user',
@@ -107,11 +103,9 @@ export default function ChatPage() {
         messages: [...prev.messages, aiMessage]
       }));
 
-      // Refresh chat list to get updated title
       loadChats();
     } catch (error) {
       console.error('Error sending message:', error);
-      // Add error message
       setCurrentChat(prev => ({
         ...prev,
         messages: [...prev.messages, {
@@ -127,13 +121,11 @@ export default function ChatPage() {
   };
 
   const handleSuggestedPrompt = async (prompt) => {
-    // Create new chat and send the prompt
     try {
       const newChat = await chatApi.createChat();
       setChats(prev => [newChat, ...prev]);
       navigate(`/chat/${newChat.id}`);
       
-      // Wait for navigation and state update
       setTimeout(async () => {
         setCurrentChat(newChat);
         await handleSendMessageDirect(newChat.id, prompt);
@@ -175,22 +167,47 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="h-screen flex bg-[#050505] overflow-hidden" data-testid="chat-page">
-      {/* Mobile menu button */}
-      <button
-        className="fixed top-4 left-4 z-50 md:hidden p-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        data-testid="mobile-menu-button"
-        aria-label="Toggle menu"
-      >
-        {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
-      </button>
+    <div className="h-[100dvh] flex bg-[#050505] overflow-hidden" data-testid="chat-page">
+      {/* Mobile header - ChatGPT style */}
+      <div className="fixed top-0 left-0 right-0 z-50 md:hidden bg-[#050505] border-b border-white/5">
+        <div className="flex items-center justify-between px-3 py-2.5">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 -ml-2 hover:bg-white/5 rounded-lg transition-colors"
+            data-testid="mobile-menu-button"
+            aria-label="Open menu"
+          >
+            <Menu size={22} strokeWidth={1.5} />
+          </button>
+          <span className="font-heading font-medium text-sm">
+            {currentChat ? (currentChat.title?.slice(0, 25) + (currentChat.title?.length > 25 ? '...' : '')) : 'Aether'}
+          </span>
+          <button
+            onClick={handleNewChat}
+            className="p-2 -mr-2 hover:bg-white/5 rounded-lg transition-colors"
+            data-testid="mobile-new-chat"
+            aria-label="New chat"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Sidebar overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
 
       {/* Sidebar */}
       <div className={`
-        fixed md:relative inset-y-0 left-0 z-40
+        fixed md:relative inset-y-0 left-0 z-50 md:z-auto
         transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0
-        transition-transform duration-300 ease-in-out
+        transition-transform duration-200 ease-out
       `}>
         <Sidebar
           chats={chats}
@@ -198,19 +215,12 @@ export default function ChatPage() {
           onNewChat={handleNewChat}
           onSelectChat={handleSelectChat}
           onDeleteChat={handleDeleteChat}
+          onClose={() => setSidebarOpen(false)}
         />
       </div>
 
-      {/* Overlay for mobile */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-30 md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
       {/* Main content */}
-      <main className="flex-1 flex flex-col h-screen overflow-hidden">
+      <main className="flex-1 flex flex-col h-[100dvh] overflow-hidden pt-[52px] md:pt-0">
         {currentChat ? (
           <ChatArea
             chat={currentChat}
