@@ -54,9 +54,9 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage 
 
   return (
     <div className="flex-1 flex flex-col h-full bg-[#050505]" data-testid="chat-area">
-      {/* Messages - ChatGPT style full width */}
+      {/* Messages */}
       <ScrollArea className="flex-1">
-        <div className="pb-4">
+        <div className="max-w-3xl mx-auto px-4 py-6">
           {chat?.messages?.map((message, index) => (
             <MessageBubble 
               key={message.id || index} 
@@ -65,19 +65,16 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage 
           ))}
           
           {sendingMessage && (
-            <div className="py-6 bg-[#0a0a0a]" data-testid="typing-indicator">
-              <div className="max-w-3xl mx-auto px-4 md:px-6">
-                <div className="flex gap-4 md:gap-6">
-                  <div className="w-8 h-8 rounded-sm bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shrink-0">
-                    <span className="text-white text-sm font-semibold">A</span>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-white mb-1.5">Aether</p>
-                    <div className="flex gap-1.5 pt-1">
-                      <span className="w-2 h-2 bg-white/40 rounded-full typing-dot"></span>
-                      <span className="w-2 h-2 bg-white/40 rounded-full typing-dot"></span>
-                      <span className="w-2 h-2 bg-white/40 rounded-full typing-dot"></span>
-                    </div>
+            <div className="flex justify-start mb-4" data-testid="typing-indicator">
+              <div className="flex gap-3">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shrink-0">
+                  <span className="text-white text-sm font-semibold">A</span>
+                </div>
+                <div className="bg-[#1a1a1a] border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3">
+                  <div className="flex gap-1.5">
+                    <span className="w-2 h-2 bg-white/40 rounded-full typing-dot"></span>
+                    <span className="w-2 h-2 bg-white/40 rounded-full typing-dot"></span>
+                    <span className="w-2 h-2 bg-white/40 rounded-full typing-dot"></span>
                   </div>
                 </div>
               </div>
@@ -88,10 +85,10 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage 
         </div>
       </ScrollArea>
 
-      {/* Input area - ChatGPT style */}
+      {/* Input */}
       <div className="p-4 bg-[#050505]">
         <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
-          <div className="relative bg-[#0f0f0f] border border-white/10 rounded-2xl shadow-lg">
+          <div className="relative bg-[#1a1a1a] border border-white/10 rounded-2xl">
             <textarea
               ref={textareaRef}
               value={input}
@@ -106,7 +103,7 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage 
             <button
               type="submit"
               disabled={!input.trim() || sendingMessage}
-              className="absolute right-3 bottom-3 p-1.5 rounded-lg bg-white text-black disabled:bg-white/20 disabled:text-white/40 disabled:cursor-not-allowed transition-colors"
+              className="absolute right-3 bottom-3 p-1.5 rounded-lg bg-indigo-600 text-white disabled:bg-white/10 disabled:text-white/30 disabled:cursor-not-allowed transition-colors"
               data-testid="send-button"
             >
               {sendingMessage ? (
@@ -117,7 +114,7 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage 
             </button>
           </div>
           <p className="text-[11px] text-white/30 text-center mt-2">
-            Aether can make mistakes. Consider checking important information.
+            Aether can make mistakes. Check important info.
           </p>
         </form>
       </div>
