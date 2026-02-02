@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Code, FileText, Lightbulb, Rocket } from 'lucide-react';
+import { Code, FileText, Lightbulb, Rocket } from 'lucide-react';
 
 const suggestedPrompts = [
   {
@@ -27,39 +27,40 @@ const suggestedPrompts = [
 export default function WelcomeScreen({ onNewChat, onSuggestedPrompt }) {
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-4 py-8" data-testid="welcome-screen">
-      <div className="max-w-2xl w-full text-center space-y-6">
+      <div className="max-w-2xl w-full text-center space-y-8">
         {/* Logo */}
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center">
-            <Sparkles size={28} className="text-white" />
-          </div>
-          <div>
-            <h1 className="font-heading text-2xl md:text-3xl font-semibold text-white">
-              How can I help you today?
-            </h1>
-          </div>
+        <div className="flex flex-col items-center gap-4">
+          <h1 className="font-heading text-3xl md:text-4xl font-medium text-white">
+            Aether Labs
+          </h1>
+          <p className="text-white/50 text-lg">How can I help you today?</p>
         </div>
 
         {/* Suggested prompts - ChatGPT grid style */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-8 px-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8">
           {suggestedPrompts.map((item, index) => (
             <button
               key={index}
               onClick={() => onSuggestedPrompt(item.prompt)}
-              className="group flex items-center gap-3 p-3 rounded-xl border border-white/10 hover:bg-white/5 text-left transition-colors"
+              className="group flex items-start gap-3 p-4 rounded-xl border border-white/10 hover:bg-white/5 text-left transition-colors"
               data-testid={`suggested-prompt-${index}`}
             >
-              <item.icon size={18} className="text-white/40 shrink-0" />
-              <span className="text-sm text-white/70 group-hover:text-white/90 transition-colors">
-                {item.title}
-              </span>
+              <item.icon size={20} className="text-white/40 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
+                  {item.title}
+                </p>
+                <p className="text-xs text-white/40 mt-1 line-clamp-2">
+                  {item.prompt}
+                </p>
+              </div>
             </button>
           ))}
         </div>
 
         {/* Footer */}
-        <p className="text-xs text-white/30 pt-4">
-          Created by Zachary Cook • Powered by GPT-5.2
+        <p className="text-[11px] text-white/20 pt-6">
+          Founder: Zachary Cook
         </p>
       </div>
     </div>
