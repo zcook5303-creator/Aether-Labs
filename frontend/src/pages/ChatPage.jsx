@@ -216,6 +216,7 @@ export default function ChatPage() {
           onSelectChat={handleSelectChat}
           onDeleteChat={handleDeleteChat}
           onClose={() => setSidebarOpen(false)}
+          onGoHome={() => navigate('/')}
         />
       </div>
 
