@@ -27,7 +27,7 @@ const suggestedPrompts = [
 const teamMembers = [
   { role: 'Founder & Owner', name: 'Zachary Cook' },
   { role: 'App Tester', name: 'Donna Cook' },
-  { role: 'App Tester', name: 'Kaleb Young Blood' },
+  { role: 'App Tester', name: 'Kaleb Youngblood' },
 ];
 
 export default function WelcomeScreen({ onNewChat, onSuggestedPrompt }) {
