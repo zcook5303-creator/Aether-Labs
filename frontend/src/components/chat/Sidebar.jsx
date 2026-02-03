@@ -55,7 +55,7 @@ export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat,
       {/* Footer with founder credit */}
       <div className="p-3 border-t border-white/5 space-y-2">
         <button
-          onClick={() => onSelectChat(null)}
+          onClick={onGoHome}
           className="w-full flex items-center justify-center gap-2 py-2 text-sm text-white/50 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
           data-testid="home-button"
         >
