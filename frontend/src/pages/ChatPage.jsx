@@ -268,11 +268,6 @@ export default function ChatPage() {
         </div>
       )}
 
-          </span>
-          <div className="w-10"></div>
-        </div>
-      </div>
-
       {/* Sidebar overlay */}
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black/60 z-40 md:hidden" onClick={() => setSidebarOpen(false)} />
