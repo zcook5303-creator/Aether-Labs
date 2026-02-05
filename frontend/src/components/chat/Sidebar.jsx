@@ -1,42 +1,25 @@
 import React from 'react';
-import { Plus, MessageSquare, Trash2, X, Home } from 'lucide-react';
+import { Plus, MessageSquare, Trash2, X, Home, LogOut } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { ScrollArea } from '../../components/ui/scroll-area';
 
-export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat, onDeleteChat, onClose, onGoHome }) {
+export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat, onDeleteChat, onClose, onGoHome, user, onLogout }) {
   return (
     <aside className="w-[260px] h-full bg-[#0f0f0f] flex flex-col" data-testid="sidebar">
       {/* Header */}
       <div className="p-3 space-y-2">
         <div className="flex items-center gap-1">
-          <Button
-            onClick={onNewChat}
-            className="flex-1 justify-start gap-3 text-sm font-normal bg-indigo-600 hover:bg-indigo-700 h-10 rounded-lg"
-            data-testid="new-chat-button"
-          >
-            <Plus size={18} />
-            New Chat
+          <Button onClick={onNewChat} className="flex-1 justify-start gap-3 text-sm font-normal bg-indigo-600 hover:bg-indigo-700 h-10 rounded-lg" data-testid="new-chat-button">
+            <Plus size={18} />New Chat
           </Button>
-          <button
-            onClick={onClose}
-            className="md:hidden p-2 hover:bg-white/5 rounded-lg transition-colors"
-            aria-label="Close sidebar"
-          >
-            <X size={20} />
-          </button>
+          <button onClick={onClose} className="md:hidden p-2 hover:bg-white/5 rounded-lg"><X size={20} /></button>
         </div>
-        <Button
-          onClick={onGoHome}
-          variant="ghost"
-          className="w-full justify-start gap-3 text-sm font-normal hover:bg-white/5 h-10 rounded-lg text-white/60"
-          data-testid="home-button"
-        >
-          <Home size={18} />
-          Home
+        <Button onClick={onGoHome} variant="ghost" className="w-full justify-start gap-3 text-sm font-normal hover:bg-white/5 h-10 rounded-lg text-white/60" data-testid="home-button">
+          <Home size={18} />Home
         </Button>
       </div>
 
-      {/* Chat list - Only shows YOUR chats */}
+      {/* Chat list */}
       <ScrollArea className="flex-1 px-2">
         <div className="space-y-0.5 py-2">
           <p className="px-3 py-2 text-xs text-white/40 font-medium">Your Chats</p>
@@ -44,7 +27,6 @@ export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat,
             <div className="px-3 py-6 text-center">
               <MessageSquare size={24} className="mx-auto mb-2 text-white/20" />
               <p className="text-xs text-white/40">No chats yet</p>
-              <p className="text-xs text-white/30 mt-1">Start a new conversation</p>
             </div>
           ) : (
             chats.map((chat) => (
@@ -60,8 +42,22 @@ export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat,
         </div>
       </ScrollArea>
 
-      {/* Footer */}
-      <div className="p-3 border-t border-white/5">
+      {/* Footer with user */}
+      <div className="p-3 border-t border-white/5 space-y-2">
+        {user ? (
+          <div className="flex items-center gap-2 p-2 rounded-lg bg-white/5">
+            <img src={user.picture} alt={user.name} className="w-8 h-8 rounded-full" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm text-white truncate">{user.name}</p>
+              <p className="text-[10px] text-white/40 truncate">{user.email}</p>
+            </div>
+            <button onClick={onLogout} className="p-1.5 hover:bg-white/10 rounded-lg" title="Logout">
+              <LogOut size={16} className="text-white/50" />
+            </button>
+          </div>
+        ) : (
+          <p className="text-[10px] text-white/30 text-center">Sign in to save chats</p>
+        )}
         <p className="text-[10px] text-white/30 text-center">Founder: Zachary Cook</p>
       </div>
     </aside>
@@ -85,12 +81,7 @@ function ChatItem({ chat, isActive, onSelect, onDelete }) {
     >
       <MessageSquare size={16} className="text-white/40 shrink-0" />
       <span className="flex-1 truncate text-sm text-white/80">{chat.title || 'New Chat'}</span>
-      <button
-        onClick={handleDelete}
-        className="opacity-0 group-hover:opacity-100 p-1 hover:bg-white/10 rounded transition-all"
-        data-testid={`delete-chat-${chat.id}`}
-        aria-label="Delete chat"
-      >
+      <button onClick={handleDelete} className="opacity-0 group-hover:opacity-100 p-1 hover:bg-white/10 rounded" data-testid={`delete-chat-${chat.id}`}>
         <Trash2 size={14} className="text-white/40 hover:text-red-400" />
       </button>
     </div>
