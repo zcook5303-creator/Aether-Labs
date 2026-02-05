@@ -3,7 +3,7 @@ import { Plus, MessageSquare, Trash2, X, Home, Settings } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { ScrollArea } from '../../components/ui/scroll-area';
 
-export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat, onDeleteChat, onClose, onGoHome }) {
+export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat, onDeleteChat, onClose, onGoHome, onOpenSettings }) {
   return (
     <aside className="w-[260px] h-full bg-[#0f0f0f] flex flex-col" data-testid="sidebar">
       {/* Header */}
