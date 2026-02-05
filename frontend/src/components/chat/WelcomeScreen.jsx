@@ -67,8 +67,56 @@ export default function WelcomeScreen({ onNewChat }) {
         </div>
 
         {/* Footer */}
-        <p className="text-[11px] text-white/20 pt-4">Founder: Zachary Cook</p>
+        <div className="pt-4 space-y-2">
+          <button
+            onClick={() => setModal('aether')}
+            className="text-[11px] text-white/30 hover:text-white/60 transition-colors underline underline-offset-2"
+            data-testid="aether-meaning-button"
+          >
+            Aether?
+          </button>
+          <p className="text-[11px] text-white/20">Founder: Zachary Cook</p>
+        </div>
       </div>
+
+      {/* Aether Meaning Modal */}
+      {modal === 'aether' && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={closeModal}>
+          <div className="bg-[#0f0f0f] border border-white/10 rounded-2xl max-w-sm w-full p-6" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="font-heading text-lg font-semibold text-white">What is AETHER?</h2>
+              <button onClick={closeModal}><X size={20} className="text-white/50" /></button>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-white/5">
+                <span className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white">A</span>
+                <span className="text-white/80">Artificial</span>
+              </div>
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-white/5">
+                <span className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white">E</span>
+                <span className="text-white/80">Engineering</span>
+              </div>
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-white/5">
+                <span className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white">T</span>
+                <span className="text-white/80">Technology</span>
+              </div>
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-white/5">
+                <span className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white">H</span>
+                <span className="text-white/80">Hyper Systems</span>
+              </div>
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-white/5">
+                <span className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white">E</span>
+                <span className="text-white/80">Energy</span>
+              </div>
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-white/5">
+                <span className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white">R</span>
+                <span className="text-white/80">Robotics</span>
+              </div>
+            </div>
+            <p className="text-xs text-white/40 text-center mt-4">The future of AI technology</p>
+          </div>
+        </div>
+      )}
 
       {/* Team Modal */}
       {modal === 'team' && (
