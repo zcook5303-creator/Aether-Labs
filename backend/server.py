@@ -46,6 +46,7 @@ class Message(BaseModel):
 class Chat(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str = ""  # To track which user owns this chat
     title: str = "New Chat"
     messages: List[Message] = []
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
@@ -53,6 +54,7 @@ class Chat(BaseModel):
 
 class ChatCreate(BaseModel):
     title: Optional[str] = "New Chat"
+    user_id: str = ""
 
 class MessageCreate(BaseModel):
     content: str
