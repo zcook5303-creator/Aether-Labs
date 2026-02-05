@@ -1,24 +1,54 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { chatApi } from '../lib/api';
 import Sidebar from '../components/chat/Sidebar';
 import ChatArea from '../components/chat/ChatArea';
 import WelcomeScreen from '../components/chat/WelcomeScreen';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
+
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 export default function ChatPage() {
   const { chatId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   
   const [chats, setChats] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sendingMessage, setSendingMessage] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [user, setUser] = useState(location.state?.user || null);
+  const [checkingAuth, setCheckingAuth] = useState(!location.state?.user);
+
+  // Check auth on mount
+  useEffect(() => {
+    if (location.state?.user) {
+      setCheckingAuth(false);
+      return;
+    }
+    
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/auth/me`, {
+          credentials: 'include'
+        });
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        }
+      } catch (error) {
+        console.log('Not authenticated');
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
+    checkAuth();
+  }, [location.state]);
 
   useEffect(() => {
     loadChats();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (chatId) {
@@ -70,9 +100,7 @@ export default function ChatPage() {
     try {
       await chatApi.deleteChat(id);
       setChats(prev => prev.filter(c => c.id !== id));
-      if (chatId === id) {
-        navigate('/');
-      }
+      if (chatId === id) navigate('/');
     } catch (error) {
       console.error('Error deleting chat:', error);
     }
@@ -97,12 +125,10 @@ export default function ChatPage() {
 
     try {
       const aiMessage = await chatApi.sendMessage(currentChat.id, content);
-      
       setCurrentChat(prev => ({
         ...prev,
         messages: [...prev.messages, aiMessage]
       }));
-
       loadChats();
     } catch (error) {
       console.error('Error sending message:', error);
@@ -125,7 +151,6 @@ export default function ChatPage() {
       const newChat = await chatApi.createChat();
       setChats(prev => [newChat, ...prev]);
       navigate(`/chat/${newChat.id}`);
-      
       setTimeout(async () => {
         setCurrentChat(newChat);
         await handleSendMessageDirect(newChat.id, prompt);
@@ -152,12 +177,10 @@ export default function ChatPage() {
 
     try {
       const aiMessage = await chatApi.sendMessage(chatIdParam, content);
-      
       setCurrentChat(prev => prev ? ({
         ...prev,
         messages: [...prev.messages, aiMessage]
       }) : null);
-
       loadChats();
     } catch (error) {
       console.error('Error:', error);
@@ -166,49 +189,53 @@ export default function ChatPage() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await fetch(`${API_URL}/api/auth/logout`, {
+        method: 'POST',
+        credentials: 'include'
+      });
+      setUser(null);
+      navigate('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
+  if (checkingAuth) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-[#050505]">
+        <div className="animate-spin w-8 h-8 border-2 border-white border-t-transparent rounded-full"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-[100dvh] flex bg-[#050505] overflow-hidden" data-testid="chat-page">
-      {/* Mobile header - ChatGPT style */}
+      {/* Mobile header */}
       <div className="fixed top-0 left-0 right-0 z-50 md:hidden bg-[#050505] border-b border-white/5">
         <div className="flex items-center justify-between px-3 py-2.5">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="p-2 -ml-2 hover:bg-white/5 rounded-lg transition-colors"
-            data-testid="mobile-menu-button"
-            aria-label="Open menu"
-          >
+          <button onClick={() => setSidebarOpen(true)} className="p-2 -ml-2 hover:bg-white/5 rounded-lg" data-testid="mobile-menu-button">
             <Menu size={22} strokeWidth={1.5} />
           </button>
           <span className="font-heading font-medium text-sm">
             {currentChat ? (currentChat.title?.slice(0, 25) + (currentChat.title?.length > 25 ? '...' : '')) : 'Aether'}
           </span>
-          <button
-            onClick={handleNewChat}
-            className="p-2 -mr-2 hover:bg-white/5 rounded-lg transition-colors"
-            data-testid="mobile-new-chat"
-            aria-label="New chat"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-          </button>
+          {user && (
+            <button onClick={handleLogout} className="p-2 -mr-2 hover:bg-white/5 rounded-lg" title="Logout">
+              <LogOut size={20} strokeWidth={1.5} />
+            </button>
+          )}
         </div>
       </div>
 
       {/* Sidebar overlay */}
       {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/60 z-40 md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
+        <div className="fixed inset-0 bg-black/60 z-40 md:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
       {/* Sidebar */}
-      <div className={`
-        fixed md:relative inset-y-0 left-0 z-50 md:z-auto
-        transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0
-        transition-transform duration-200 ease-out
-      `}>
+      <div className={`fixed md:relative inset-y-0 left-0 z-50 md:z-auto transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-200 ease-out`}>
         <Sidebar
           chats={chats}
           currentChatId={chatId}
@@ -217,6 +244,8 @@ export default function ChatPage() {
           onDeleteChat={handleDeleteChat}
           onClose={() => setSidebarOpen(false)}
           onGoHome={() => navigate('/')}
+          user={user}
+          onLogout={handleLogout}
         />
       </div>
 
@@ -233,6 +262,7 @@ export default function ChatPage() {
           <WelcomeScreen
             onNewChat={handleNewChat}
             onSuggestedPrompt={handleSuggestedPrompt}
+            user={user}
           />
         )}
       </main>
