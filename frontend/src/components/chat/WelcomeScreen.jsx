@@ -65,17 +65,28 @@ function TeamModal({ close }) {
           <h2 className="font-heading text-lg font-semibold text-white">Our Team</h2>
           <button onClick={close}><X size={20} className="text-white/50" /></button>
         </div>
-        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 mb-2">
-          <div className="w-10 h-10 rounded-full bg-indigo-600/30 flex items-center justify-center"><span className="text-indigo-400">Z</span></div>
-          <div><p className="text-sm text-white">Zachary Cook</p><p className="text-xs text-white/50">Founder & Owner</p></div>
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-yellow-600/30 to-amber-500/30 border border-yellow-500/30 mb-2">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center shadow-lg shadow-yellow-500/30">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 12l-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"/>
+              <path d="M17.64 15L22 10.64"/>
+              <path d="M20 6l-3-3"/>
+              <path d="M9 3l3 3-6 6"/>
+            </svg>
+          </div>
+          <div><p className="text-sm text-white font-semibold">Zachary Cook</p><p className="text-xs text-yellow-400/80">Founder & Owner</p></div>
         </div>
         <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 mb-2">
           <div className="w-10 h-10 rounded-full bg-indigo-600/30 flex items-center justify-center"><span className="text-indigo-400">D</span></div>
           <div><p className="text-sm text-white">Donna Cook</p><p className="text-xs text-white/50">App Tester</p></div>
         </div>
-        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 mb-2">
           <div className="w-10 h-10 rounded-full bg-indigo-600/30 flex items-center justify-center"><span className="text-indigo-400">K</span></div>
           <div><p className="text-sm text-white">Kaleb Youngblood</p><p className="text-xs text-white/50">App Tester</p></div>
+        </div>
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
+          <div className="w-10 h-10 rounded-full bg-indigo-600/30 flex items-center justify-center"><span className="text-indigo-400">K</span></div>
+          <div><p className="text-sm text-white">Kane Youngblood</p><p className="text-xs text-white/50">App Tester</p></div>
         </div>
       </div>
     </div>
