@@ -5,16 +5,22 @@ import { QRCodeSVG } from 'qrcode.react';
 // Radiation logo SVG component
 function RadiationLogo({ size = 70 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 100 100">
-      {/* Center circle */}
-      <circle cx="50" cy="50" r="10" fill="white"/>
-      {/* Three triangular blades - 120 degrees apart */}
-      {/* Blade pointing up (12 o'clock) */}
-      <path d="M50 40 L35 10 L65 10 Z" fill="white"/>
-      {/* Blade pointing bottom-right (4 o'clock) */}
-      <path d="M58 54 L88 64 L73 90 Z" fill="white"/>
-      {/* Blade pointing bottom-left (8 o'clock) */}
-      <path d="M42 54 L27 90 L12 64 Z" fill="white"/>
+    <svg width={size} height={size} viewBox="-3 -3 6 6" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <mask id="trefoil-mask-logo" maskUnits="userSpaceOnUse" x="-3" y="-3" width="6" height="6">
+          <circle r="1.625" fill="none" stroke="#ffffff" strokeWidth="1.75" />
+        </mask>
+      </defs>
+      <circle r="3" fill="#000000" />
+      <circle r="0.5" fill="#ffffff" />
+      <g mask="url(#trefoil-mask-logo)">
+        <g id="blade-group-logo">
+          <path id="blade-logo" transform="rotate(30)" d="M0 0 V2.88 H3" fill="#ffffff" />
+          <use href="#blade-logo" transform="scale(-1 1)" fill="#ffffff" />
+        </g>
+        <use href="#blade-group-logo" transform="rotate(120)" />
+        <use href="#blade-group-logo" transform="rotate(240)" />
+      </g>
     </svg>
   );
 }
