@@ -5,16 +5,12 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-export default function MessageBubble({ message, fontSize = 'medium', density = 'comfortable' }) {
+export default function MessageBubble({ message }) {
   const isUser = message.role === 'user';
-
-  const fontSizeClass =
-    fontSize === 'small' ? 'text-[13px]' : fontSize === 'large' ? 'text-[17px]' : 'text-[15px]';
-  const spacingClass = density === 'compact' ? 'mb-2' : 'mb-4';
 
   return (
     <div 
-      className={`flex ${isUser ? 'justify-end' : 'justify-start'} ${spacingClass}`}
+      className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}
       data-testid={`message-${message.id}`}
     >
       <div className={`flex gap-3 max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
@@ -40,9 +36,9 @@ export default function MessageBubble({ message, fontSize = 'medium', density = 
           `}
         >
           {isUser ? (
-            <p className={`${fontSizeClass} whitespace-pre-wrap leading-relaxed`}>{message.content}</p>
+            <p className="text-[15px] whitespace-pre-wrap leading-relaxed">{message.content}</p>
           ) : (
-            <div className={`prose-chat ${fontSizeClass} leading-relaxed`}>
+            <div className="prose-chat text-[15px] leading-relaxed">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
