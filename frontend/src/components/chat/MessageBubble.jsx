@@ -14,7 +14,7 @@ export default function MessageBubble({ message, fontSize = 'medium', density = 
 
   return (
     <div 
-      className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}
+      className={`flex ${isUser ? 'justify-end' : 'justify-start'} ${spacingClass}`}
       data-testid={`message-${message.id}`}
     >
       <div className={`flex gap-3 max-w-[85%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
