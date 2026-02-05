@@ -3,14 +3,8 @@ import React from 'react';
 export default function SplashScreen() {
   return (
     <div className="fixed inset-0 bg-black flex items-center justify-center z-[100]">
-      <div className="flex flex-col items-center gap-4 animate-pulse">
-        {/* Radiation Symbol Logo */}
-        <svg 
-          width="80" 
-          height="80" 
-          viewBox="0 0 100 100" 
-          className="animate-spin-slow"
-        >
+      <div className="flex flex-col items-center gap-4">
+        <svg width="80" height="80" viewBox="0 0 100 100">
           <g fill="#ffffff" transform="translate(50,50)">
             <circle r="10"/>
             <path d="M0,-40 A40,40 0 0,1 34.64,20 L17.32,10 A20,20 0 0,0 0,-20 Z"/>
