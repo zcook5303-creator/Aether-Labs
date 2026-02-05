@@ -165,6 +165,11 @@ export default function ChatPage() {
           </button>
           <span className="font-heading font-medium text-sm">
             {currentChat ? (currentChat.title?.slice(0, 25) + (currentChat.title?.length > 25 ? '...' : '')) : 'Aether'}
+          </span>
+          <div className="w-10"></div>
+        </div>
+      </div>
+
       {settingsOpen && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setSettingsOpen(false)}>
           <div className="bg-[#0f0f0f] border border-white/10 rounded-2xl max-w-md w-full p-6 text-white" onClick={e => e.stopPropagation()}>
