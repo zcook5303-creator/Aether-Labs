@@ -5,8 +5,12 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-export default function MessageBubble({ message }) {
+export default function MessageBubble({ message, fontSize = 'medium', density = 'comfortable' }) {
   const isUser = message.role === 'user';
+
+  const fontSizeClass =
+    fontSize === 'small' ? 'text-[13px]' : fontSize === 'large' ? 'text-[17px]' : 'text-[15px]';
+  const spacingClass = density === 'compact' ? 'mb-2' : 'mb-4';
 
   return (
     <div 
