@@ -74,10 +74,36 @@ class ChatListItem(BaseModel):
     created_at: str
     updated_at: str
 
+class ImageGenerateRequest(BaseModel):
+    prompt: str
+
+class ImageGenerateResponse(BaseModel):
+    image_base64: str
+
 # Routes
 @api_router.get("/")
 async def root():
     return {"message": "Aether Labs API"}
+
+@api_router.post("/generate-image", response_model=ImageGenerateResponse)
+async def generate_image(request: ImageGenerateRequest):
+    """Generate an AI image from a text description"""
+    try:
+        image_gen = OpenAIImageGeneration(api_key=EMERGENT_LLM_KEY)
+        images = await image_gen.generate_images(
+            prompt=request.prompt,
+            model="gpt-image-1",
+            number_of_images=1
+        )
+        
+        if images and len(images) > 0:
+            image_base64 = base64.b64encode(images[0]).decode('utf-8')
+            return ImageGenerateResponse(image_base64=image_base64)
+        else:
+            raise HTTPException(status_code=500, detail="No image was generated")
+    except Exception as e:
+        logger.error(f"Error generating image: {e}")
+        raise HTTPException(status_code=500, detail=f"Image generation failed: {str(e)}")
 
 @api_router.post("/chats", response_model=ChatResponse)
 async def create_chat(chat_input: ChatCreate):
