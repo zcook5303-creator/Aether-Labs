@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, MessageSquare, Trash2, X, Home } from 'lucide-react';
+import { Plus, MessageSquare, Trash2, X, Home, Settings } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { ScrollArea } from '../../components/ui/scroll-area';
 
