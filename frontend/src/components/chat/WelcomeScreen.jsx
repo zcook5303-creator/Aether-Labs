@@ -6,10 +6,15 @@ import { QRCodeSVG } from 'qrcode.react';
 function RadiationLogo({ size = 70 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="8" fill="white"/>
-      <path d="M50 42 L50 8 A42 42 0 0 1 86 71 L58 55 A16 16 0 0 0 50 42" fill="white"/>
-      <path d="M42 55 L14 71 A42 42 0 0 1 50 8 L50 42 A16 16 0 0 0 42 55" fill="white"/>
-      <path d="M58 55 L86 71 A42 42 0 0 1 14 71 L42 55 A16 16 0 0 0 58 55" fill="white"/>
+      {/* Center circle */}
+      <circle cx="50" cy="50" r="10" fill="white"/>
+      {/* Three triangular blades - 120 degrees apart */}
+      {/* Blade pointing up (12 o'clock) */}
+      <path d="M50 40 L35 10 L65 10 Z" fill="white"/>
+      {/* Blade pointing bottom-right (4 o'clock) */}
+      <path d="M58 54 L88 64 L73 90 Z" fill="white"/>
+      {/* Blade pointing bottom-left (8 o'clock) */}
+      <path d="M42 54 L27 90 L12 64 Z" fill="white"/>
     </svg>
   );
 }
