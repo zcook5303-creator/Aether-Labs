@@ -70,12 +70,12 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
     <div className="flex-1 flex flex-col h-full bg-[#050505]" data-testid="chat-area">
       {/* Messages */}
       <ScrollArea className="flex-1">
-        <div className="max-w-3xl mx-auto px-4 py-6">
+        <div className={`max-w-3xl mx-auto px-4 ${messageDensity === 'compact' ? 'py-3 space-y-2' : 'py-6 space-y-4'}`}>
           {chat?.messages?.map((message, index) => (
-            <MessageBubble key={message.id || index} message={message} />
+            <MessageBubble key={message.id || index} message={message} fontSize={fontSize} density={messageDensity} />
           ))}
           
-          {sendingMessage && (
+          {sendingMessage && showTyping && (
             <div className="flex justify-start mb-4" data-testid="typing-indicator">
               <div className="flex gap-3">
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shrink-0">
