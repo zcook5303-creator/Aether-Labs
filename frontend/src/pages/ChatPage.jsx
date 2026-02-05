@@ -26,6 +26,40 @@ export default function ChatPage() {
   }, []);
 
   useEffect(() => {
+    // Load settings from localStorage
+    try {
+      const storedTheme = localStorage.getItem('aether-theme');
+      const storedDensity = localStorage.getItem('aether-message-density');
+      const storedFontSize = localStorage.getItem('aether-font-size');
+      const storedShowTyping = localStorage.getItem('aether-show-typing');
+
+      if (storedTheme === 'light' || storedTheme === 'dark') {
+        setTheme(storedTheme);
+      }
+      if (storedDensity === 'comfortable' || storedDensity === 'compact') {
+        setMessageDensity(storedDensity);
+      }
+      if (storedFontSize === 'small' || storedFontSize === 'medium' || storedFontSize === 'large') {
+        setFontSize(storedFontSize);
+      }
+      if (storedShowTyping === 'true' || storedShowTyping === 'false') {
+        setShowTyping(storedShowTyping === 'true');
+      }
+    } catch (e) {
+      console.error('Error loading settings from localStorage', e);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Apply theme class to documentElement for Tailwind dark mode compatibility
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
+  useEffect(() => {
     if (chatId) {
       loadChat(chatId);
     } else {
