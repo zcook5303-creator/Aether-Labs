@@ -67,7 +67,10 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
   }
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-[#050505]" data-testid="chat-area">
+    <div
+      className={`flex-1 flex flex-col h-full ${theme === 'light' ? 'bg-white text-black' : 'bg-[#050505] text-white'}`}
+      data-testid="chat-area"
+    >
       {/* Messages */}
       <ScrollArea className="flex-1">
         <div className={`max-w-3xl mx-auto px-4 ${messageDensity === 'compact' ? 'py-3 space-y-2' : 'py-6 space-y-4'}`}>
