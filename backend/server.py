@@ -79,14 +79,16 @@ async def root():
 
 @api_router.post("/chats", response_model=ChatResponse)
 async def create_chat(chat_input: ChatCreate):
-    chat = Chat(title=chat_input.title or "New Chat")
+    chat = Chat(title=chat_input.title or "New Chat", user_id=chat_input.user_id)
     doc = chat.model_dump()
     await db.chats.insert_one(doc)
     return ChatResponse(**doc)
 
 @api_router.get("/chats", response_model=List[ChatListItem])
-async def get_chats():
-    chats = await db.chats.find({}, {"_id": 0, "messages": 0}).sort("updated_at", -1).to_list(100)
+async def get_chats(user_id: str = ""):
+    if not user_id:
+        return []
+    chats = await db.chats.find({"user_id": user_id}, {"_id": 0, "messages": 0}).sort("updated_at", -1).to_list(100)
     return [ChatListItem(**c) for c in chats]
 
 @api_router.get("/chats/{chat_id}", response_model=ChatResponse)
