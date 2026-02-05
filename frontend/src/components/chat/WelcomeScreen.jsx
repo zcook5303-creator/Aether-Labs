@@ -12,12 +12,11 @@ export default function WelcomeScreen({ onSuggestedPrompt }) {
       <div className="max-w-2xl w-full text-center space-y-8">
         <div className="flex flex-col items-center gap-4">
           <svg width="60" height="60" viewBox="0 0 100 100">
-            <g fill="#ffffff" transform="translate(50,50)">
-              <circle r="10"/>
-              <path d="M0,-40 A40,40 0 0,1 34.64,20 L17.32,10 A20,20 0 0,0 0,-20 Z"/>
-              <path d="M34.64,20 A40,40 0 0,1 -34.64,20 L-17.32,10 A20,20 0 0,0 17.32,10 Z"/>
-              <path d="M-34.64,20 A40,40 0 0,1 0,-40 L0,-20 A20,20 0 0,0 -17.32,10 Z"/>
-            </g>
+            <circle cx="50" cy="50" r="45" fill="none" stroke="white" strokeWidth="5"/>
+            <circle cx="50" cy="50" r="10" fill="white"/>
+            <path d="M50,40 L35,15 A35,35 0 0,1 65,15 Z" fill="white"/>
+            <path d="M42,55 L15,70 A35,35 0 0,1 30,35 Z" fill="white"/>
+            <path d="M58,55 L85,70 A35,35 0 0,1 70,35 Z" fill="white"/>
           </svg>
           <h1 className="font-heading text-3xl md:text-4xl font-medium text-white">Aether Labs</h1>
           <p className="text-white/50 text-lg">How can I help you today?</p>
