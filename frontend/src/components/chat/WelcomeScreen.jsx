@@ -149,14 +149,24 @@ export default function WelcomeScreen({ onNewChat }) {
                 </div>
                 <div><p className="text-sm text-white">Kane Youngblood</p><p className="text-xs text-gray-300">App Tester</p></div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-gray-500/20 to-slate-400/20 border border-gray-300/40">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-gray-500/20 to-slate-400/20 border border-gray-300/40 mb-2">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-200 to-slate-300 flex items-center justify-center shadow-lg shadow-gray-400/30">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M11.5 3.5c.5-1 1.5-1.5 2.5-1.5 1.5 0 2.5 1 3 2l1 3c.5 1.5 0 3-1 4l-3 3"/>
-                    <path d="M6 12l-2 2c-1 1-1 3 0 4l2 2c1 1 3 1 4 0l8-8"/>
+                  {/* Guitar icon for Billy */}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1f2933" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="8" cy="16" r="3" fill="#e5e7eb" stroke="#1f2933" />
+                    <path d="M10 14 L17 7" />
+                    <path d="M18 6 L20 4" />
+                    <path d="M16.5 5.5 L18.5 3.5" />
+                    <path d="M17 9 L19 7" />
                   </svg>
                 </div>
                 <div><p className="text-sm text-white">Billy Cook</p><p className="text-xs text-gray-300">App Tester</p></div>
+              </div>
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-gray-500/20 to-slate-400/20 border border-gray-300/40">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-200 to-slate-300 flex items-center justify-center shadow-lg shadow-gray-400/30">
+                  <span className="text-sm font-semibold text-gray-900">N</span>
+                </div>
+                <div><p className="text-sm text-white">Naomi Cook</p><p className="text-xs text-gray-300">App Tester</p></div>
               </div>
             </div>
           </div>
