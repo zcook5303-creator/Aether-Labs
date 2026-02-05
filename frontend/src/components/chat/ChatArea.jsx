@@ -100,7 +100,7 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
       </ScrollArea>
 
       {/* Input */}
-      <div className="p-4 bg-[#050505]">
+      <div className={`p-4 ${theme === 'light' ? 'bg-white/90' : 'bg-[#050505]'}`}>
         <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
           <div className="relative bg-[#1a1a1a] border border-white/10 rounded-2xl">
             <div className="flex items-center gap-2 px-3 pt-3">
