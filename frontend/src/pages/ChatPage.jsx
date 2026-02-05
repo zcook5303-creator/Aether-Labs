@@ -15,6 +15,11 @@ export default function ChatPage() {
   const [loading, setLoading] = useState(false);
   const [sendingMessage, setSendingMessage] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [theme, setTheme] = useState('dark');
+  const [messageDensity, setMessageDensity] = useState('comfortable');
+  const [fontSize, setFontSize] = useState('medium');
+  const [showTyping, setShowTyping] = useState(true);
 
   useEffect(() => {
     loadChats();
