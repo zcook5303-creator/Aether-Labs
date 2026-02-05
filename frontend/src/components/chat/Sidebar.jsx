@@ -17,6 +17,9 @@ export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat,
         <Button onClick={onGoHome} variant="ghost" className="w-full justify-start gap-3 text-sm font-normal hover:bg-white/5 h-10 rounded-lg text-white/60" data-testid="home-button">
           <Home size={18} />Home
         </Button>
+        <Button onClick={onOpenSettings} variant="ghost" className="w-full justify-start gap-3 text-sm font-normal hover:bg-white/5 h-10 rounded-lg text-white/60" data-testid="settings-button">
+          <Settings size={18} />Settings
+        </Button>
       </div>
 
       {/* Chat list */}
@@ -43,16 +46,8 @@ export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat,
       </ScrollArea>
 
       {/* Footer */}
-      <div className="p-3 border-t border-white/5 flex items-center justify-between gap-2">
-        <button
-          onClick={onOpenSettings}
-          className="inline-flex items-center gap-1 text-[11px] text-white/60 hover:text-white hover:bg-white/5 px-2 py-1 rounded-md transition-colors"
-          data-testid="settings-button"
-        >
-          <Settings size={14} />
-          <span>Settings</span>
-        </button>
-        <p className="text-[10px] text-white/30 text-right flex-1 truncate">Founder: Zachary Cook</p>
+      <div className="p-3 border-t border-white/5">
+        <p className="text-[10px] text-white/30 text-center">Founder: Zachary Cook</p>
       </div>
     </aside>
   );
