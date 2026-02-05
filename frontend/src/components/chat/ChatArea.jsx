@@ -75,7 +75,7 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
       <ScrollArea className="flex-1">
         <div className={`max-w-3xl mx-auto px-4 ${messageDensity === 'compact' ? 'py-3 space-y-2' : 'py-6 space-y-4'}`}>
           {chat?.messages?.map((message, index) => (
-            <MessageBubble key={message.id || index} message={message} fontSize={fontSize} density={messageDensity} />
+            <MessageBubble key={message.id || index} message={message} />
           ))}
           
           {sendingMessage && showTyping && (
