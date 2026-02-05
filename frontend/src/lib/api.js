@@ -16,6 +16,12 @@ const getUserId = () => {
 export const chatApi = {
   getUserId,
 
+  // Generate an AI image
+  generateImage: async (prompt) => {
+    const response = await axios.post(`${API}/generate-image`, { prompt });
+    return response.data;
+  },
+
   getChats: async () => {
     const userId = getUserId();
     const response = await axios.get(`${API}/chats?user_id=${userId}`);
