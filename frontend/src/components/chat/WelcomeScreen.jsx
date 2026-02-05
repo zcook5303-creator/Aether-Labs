@@ -131,26 +131,32 @@ export default function WelcomeScreen({ onNewChat }) {
                 </div>
                 <div><p className="text-sm text-white font-semibold">Zachary Cook</p><p className="text-xs text-yellow-400/80">Founder & Owner</p></div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 mb-2">
-                <div className="w-10 h-10 rounded-full bg-indigo-600/30 flex items-center justify-center"><span className="text-indigo-400">D</span></div>
-                <div><p className="text-sm text-white">Donna Cook</p><p className="text-xs text-white/50">App Tester (Ripple)</p></div>
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-gray-500/20 to-slate-400/20 border border-gray-300/40 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-200 to-slate-300 flex items-center justify-center shadow-lg shadow-gray-400/30">
+                  <span className="text-sm font-semibold text-gray-900">D</span>
+                </div>
+                <div><p className="text-sm text-white">Donna Cook</p><p className="text-xs text-gray-300">App Tester (Ripple)</p></div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 mb-2">
-                <div className="w-10 h-10 rounded-full bg-indigo-600/30 flex items-center justify-center"><span className="text-indigo-400">K</span></div>
-                <div><p className="text-sm text-white">Kaleb Youngblood</p><p className="text-xs text-white/50">App Tester</p></div>
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-gray-500/20 to-slate-400/20 border border-gray-300/40 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-200 to-slate-300 flex items-center justify-center shadow-lg shadow-gray-400/30">
+                  <span className="text-sm font-semibold text-gray-900">K</span>
+                </div>
+                <div><p className="text-sm text-white">Kaleb Youngblood</p><p className="text-xs text-gray-300">App Tester</p></div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 mb-2">
-                <div className="w-10 h-10 rounded-full bg-indigo-600/30 flex items-center justify-center"><span className="text-indigo-400">K</span></div>
-                <div><p className="text-sm text-white">Kane Youngblood</p><p className="text-xs text-white/50">App Tester</p></div>
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-gray-500/20 to-slate-400/20 border border-gray-300/40 mb-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-200 to-slate-300 flex items-center justify-center shadow-lg shadow-gray-400/30">
+                  <span className="text-sm font-semibold text-gray-900">K</span>
+                </div>
+                <div><p className="text-sm text-white">Kane Youngblood</p><p className="text-xs text-gray-300">App Tester</p></div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-gray-400/20 to-slate-300/20 border border-gray-400/30">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-300 to-slate-400 flex items-center justify-center shadow-lg shadow-gray-400/30">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-gray-500/20 to-slate-400/20 border border-gray-300/40">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-200 to-slate-300 flex items-center justify-center shadow-lg shadow-gray-400/30">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M11.5 3.5c.5-1 1.5-1.5 2.5-1.5 1.5 0 2.5 1 3 2l1 3c.5 1.5 0 3-1 4l-3 3"/>
                     <path d="M6 12l-2 2c-1 1-1 3 0 4l2 2c1 1 3 1 4 0l8-8"/>
                   </svg>
                 </div>
-                <div><p className="text-sm text-white">Billy Cook</p><p className="text-xs text-gray-400">App Tester</p></div>
+                <div><p className="text-sm text-white">Billy Cook</p><p className="text-xs text-gray-300">App Tester</p></div>
               </div>
             </div>
           </div>
