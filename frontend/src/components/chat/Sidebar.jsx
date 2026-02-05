@@ -1,9 +1,9 @@
 import React from 'react';
-import { Plus, MessageSquare, Trash2, X, Home, LogOut } from 'lucide-react';
+import { Plus, MessageSquare, Trash2, X, Home } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { ScrollArea } from '../../components/ui/scroll-area';
 
-export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat, onDeleteChat, onClose, onGoHome, user, onLogout }) {
+export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat, onDeleteChat, onClose, onGoHome }) {
   return (
     <aside className="w-[260px] h-full bg-[#0f0f0f] flex flex-col" data-testid="sidebar">
       {/* Header */}
@@ -42,22 +42,8 @@ export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat,
         </div>
       </ScrollArea>
 
-      {/* Footer with user */}
-      <div className="p-3 border-t border-white/5 space-y-2">
-        {user ? (
-          <div className="flex items-center gap-2 p-2 rounded-lg bg-white/5">
-            <img src={user.picture} alt={user.name} className="w-8 h-8 rounded-full" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm text-white truncate">{user.name}</p>
-              <p className="text-[10px] text-white/40 truncate">{user.email}</p>
-            </div>
-            <button onClick={onLogout} className="p-1.5 hover:bg-white/10 rounded-lg" title="Logout">
-              <LogOut size={16} className="text-white/50" />
-            </button>
-          </div>
-        ) : (
-          <p className="text-[10px] text-white/30 text-center">Sign in to save chats</p>
-        )}
+      {/* Footer */}
+      <div className="p-3 border-t border-white/5">
         <p className="text-[10px] text-white/30 text-center">Founder: Zachary Cook</p>
       </div>
     </aside>
