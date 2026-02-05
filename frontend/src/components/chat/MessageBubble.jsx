@@ -40,9 +40,9 @@ export default function MessageBubble({ message, fontSize = 'medium', density = 
           `}
         >
           {isUser ? (
-            <p className="text-[15px] whitespace-pre-wrap leading-relaxed">{message.content}</p>
+            <p className={`${fontSizeClass} whitespace-pre-wrap leading-relaxed`}>{message.content}</p>
           ) : (
-            <div className="prose-chat text-[15px] leading-relaxed">
+            <div className={`prose-chat ${fontSizeClass} leading-relaxed`}>
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
