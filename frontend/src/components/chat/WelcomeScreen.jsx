@@ -2,6 +2,18 @@ import React, { useState } from 'react';
 import { Users, X, QrCode, ScrollText, Plus, Star } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
+// Radiation logo SVG component
+function RadiationLogo({ size = 70 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="8" fill="white"/>
+      <path d="M50 42 L50 8 A42 42 0 0 1 86 71 L58 55 A16 16 0 0 0 50 42" fill="white"/>
+      <path d="M42 55 L14 71 A42 42 0 0 1 50 8 L50 42 A16 16 0 0 0 42 55" fill="white"/>
+      <path d="M58 55 L86 71 A42 42 0 0 1 14 71 L42 55 A16 16 0 0 0 58 55" fill="white"/>
+    </svg>
+  );
+}
+
 export default function WelcomeScreen({ onNewChat }) {
   const [modal, setModal] = useState(null);
   const [rating, setRating] = useState(0);
@@ -25,13 +37,7 @@ export default function WelcomeScreen({ onNewChat }) {
       <div className="max-w-md w-full text-center space-y-6">
         {/* Logo */}
         <div className="flex flex-col items-center gap-4">
-          <svg width="70" height="70" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="42" fill="none" stroke="white" strokeWidth="6"/>
-            <circle cx="50" cy="50" r="8" fill="white"/>
-            <path d="M50 42 L38 12 A38 38 0 0 1 62 12 Z" fill="white"/>
-            <path d="M43 54 L13 72 A38 38 0 0 1 26 28 Z" fill="white"/>
-            <path d="M57 54 L87 72 A38 38 0 0 1 74 28 Z" fill="white"/>
-          </svg>
+          <RadiationLogo size={70} />
           <h1 className="font-heading text-3xl md:text-4xl font-medium text-white">Aether Labs</h1>
           <p className="text-white/50">How can I help you today?</p>
         </div>
@@ -62,7 +68,7 @@ export default function WelcomeScreen({ onNewChat }) {
         </div>
       </div>
 
-      {/* Review Modal */}
+      {/* Review Modal - 5 Stars */}
       {modal === 'review' && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={closeModal}>
           <div className="bg-[#0f0f0f] border border-white/10 rounded-2xl max-w-sm w-full p-6" onClick={e => e.stopPropagation()}>
@@ -72,43 +78,31 @@ export default function WelcomeScreen({ onNewChat }) {
             </div>
             
             {submitted ? (
-              <div className="text-center py-8">
-                <div className="flex justify-center gap-1 mb-4">
+              <div className="text-center py-6">
+                <div className="flex justify-center gap-2 mb-4">
                   {[...Array(rating)].map((_, i) => (
-                    <Star key={i} size={28} fill="#FFD700" stroke="#FFD700" />
+                    <Star key={i} size={32} fill="#FFD700" stroke="#FFD700" />
                   ))}
                 </div>
-                <p className="text-xl font-semibold text-white mb-2">Thanks for your feedback!</p>
-                <p className="text-white/50 text-sm">You rated us {rating} out of 10 stars</p>
+                <p className="text-xl font-semibold text-white">Thanks for your feedback!</p>
               </div>
             ) : (
               <div>
-                <p className="text-white/60 text-center mb-4">Tap a star to rate</p>
-                <div className="flex justify-center gap-1 flex-wrap">
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((star) => (
-                    <button
-                      key={star}
-                      onClick={() => handleRating(star)}
-                      className="p-1 hover:scale-110 transition-transform"
-                      data-testid={`star-${star}`}
-                    >
-                      <Star 
-                        size={28} 
-                        fill={rating >= star ? "#FFD700" : "transparent"} 
-                        stroke="#FFD700" 
-                        className="transition-colors"
-                      />
+                <p className="text-white/60 text-center mb-6">Tap a star to rate</p>
+                <div className="flex justify-center gap-3">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button key={star} onClick={() => handleRating(star)} className="p-1 hover:scale-110 transition-transform" data-testid={`star-${star}`}>
+                      <Star size={36} fill={rating >= star ? "#FFD700" : "transparent"} stroke="#FFD700" />
                     </button>
                   ))}
                 </div>
-                <p className="text-center text-white/40 text-sm mt-4">1 = Poor, 10 = Excellent</p>
               </div>
             )}
           </div>
         </div>
       )}
 
-      {/* Team Modal - Scrollable */}
+      {/* Team Modal */}
       {modal === 'team' && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={closeModal}>
           <div className="bg-[#0f0f0f] border border-white/10 rounded-2xl max-w-sm w-full max-h-[80vh] flex flex-col" onClick={e => e.stopPropagation()}>
@@ -117,7 +111,6 @@ export default function WelcomeScreen({ onNewChat }) {
               <button onClick={closeModal}><X size={20} className="text-white/50" /></button>
             </div>
             <div className="p-4 overflow-y-auto flex-1">
-              {/* Zachary Cook - Gold - Founder */}
               <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-yellow-600/30 to-amber-500/30 border border-yellow-500/30 mb-2">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center shadow-lg shadow-yellow-500/30">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -127,28 +120,23 @@ export default function WelcomeScreen({ onNewChat }) {
                 </div>
                 <div><p className="text-sm text-white font-semibold">Zachary Cook</p><p className="text-xs text-yellow-400/80">Founder & Owner</p></div>
               </div>
-              {/* Donna Cook - First Tester */}
               <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 mb-2">
                 <div className="w-10 h-10 rounded-full bg-indigo-600/30 flex items-center justify-center"><span className="text-indigo-400">D</span></div>
-                <div><p className="text-sm text-white">Donna Cook</p><p className="text-xs text-white/50">App Tester (Ripple) - First Tester</p></div>
+                <div><p className="text-sm text-white">Donna Cook</p><p className="text-xs text-white/50">App Tester (Ripple)</p></div>
               </div>
-              {/* Kaleb Youngblood */}
               <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 mb-2">
                 <div className="w-10 h-10 rounded-full bg-indigo-600/30 flex items-center justify-center"><span className="text-indigo-400">K</span></div>
                 <div><p className="text-sm text-white">Kaleb Youngblood</p><p className="text-xs text-white/50">App Tester</p></div>
               </div>
-              {/* Kane Youngblood */}
               <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 mb-2">
                 <div className="w-10 h-10 rounded-full bg-indigo-600/30 flex items-center justify-center"><span className="text-indigo-400">K</span></div>
                 <div><p className="text-sm text-white">Kane Youngblood</p><p className="text-xs text-white/50">App Tester</p></div>
               </div>
-              {/* Billy Cook - Silver with Guitar */}
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-gray-400/20 to-slate-300/20 border border-gray-400/30 mb-2">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-gray-400/20 to-slate-300/20 border border-gray-400/30">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-300 to-slate-400 flex items-center justify-center shadow-lg shadow-gray-400/30">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M11.5 3.5c.5-1 1.5-1.5 2.5-1.5 1.5 0 2.5 1 3 2l1 3c.5 1.5 0 3-1 4l-3 3"/>
                     <path d="M6 12l-2 2c-1 1-1 3 0 4l2 2c1 1 3 1 4 0l8-8"/>
-                    <path d="M5 21l1-1"/><path d="M10 21l-1-1"/>
                   </svg>
                 </div>
                 <div><p className="text-sm text-white">Billy Cook</p><p className="text-xs text-gray-400">App Tester</p></div>
@@ -172,47 +160,26 @@ export default function WelcomeScreen({ onNewChat }) {
         </div>
       )}
 
-      {/* Update Log Modal */}
+      {/* Update Log Modal - Simplified */}
       {modal === 'log' && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={closeModal}>
-          <div className="bg-[#0f0f0f] border border-white/10 rounded-2xl max-w-md w-full max-h-[80vh] overflow-hidden" onClick={e => e.stopPropagation()}>
-            <div className="flex justify-between items-center p-6 border-b border-white/10">
+          <div className="bg-[#0f0f0f] border border-white/10 rounded-2xl max-w-sm w-full p-6" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
               <h2 className="font-heading text-lg font-semibold text-white">Update Log</h2>
               <button onClick={closeModal}><X size={20} className="text-white/50" /></button>
             </div>
-            <div className="p-6 overflow-y-auto max-h-[60vh] space-y-6">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm font-bold text-white">v1.6.0</span>
-                  <span className="text-xs text-white/40">Feb 5, 2026</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400">Latest</span>
-                </div>
-                <p className="text-sm text-white/70 ml-2">• Added star rating reviews</p>
-                <p className="text-sm text-white/70 ml-2">• Billy Cook now App Tester</p>
-                <p className="text-sm text-white/70 ml-2">• Improved team list scroll</p>
+            <div className="space-y-4">
+              <div className="p-3 rounded-lg bg-indigo-500/10 border border-indigo-500/20">
+                <p className="text-sm font-semibold text-white">v1.6 <span className="text-indigo-400 text-xs ml-2">Latest</span></p>
+                <p className="text-xs text-white/60 mt-1">Reviews, team updates, new logo</p>
               </div>
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm font-bold text-white">v1.5.0</span>
-                  <span className="text-xs text-white/40">Feb 5, 2026</span>
-                </div>
-                <p className="text-sm text-white/70 ml-2">• Image generation in chat</p>
-                <p className="text-sm text-white/70 ml-2">• Simplified menu</p>
+              <div className="p-3 rounded-lg bg-white/5">
+                <p className="text-sm font-semibold text-white">v1.5</p>
+                <p className="text-xs text-white/60 mt-1">Image generation in chat</p>
               </div>
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm font-bold text-white">v1.4.0</span>
-                  <span className="text-xs text-white/40">Feb 5, 2026</span>
-                </div>
-                <p className="text-sm text-white/70 ml-2">• AI Image Generation</p>
-                <p className="text-sm text-white/70 ml-2">• Billy Cook added</p>
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm font-bold text-white">v1.0.0</span>
-                  <span className="text-xs text-white/40">Feb 2, 2026</span>
-                </div>
-                <p className="text-sm text-white/70 ml-2">• Initial release</p>
+              <div className="p-3 rounded-lg bg-white/5">
+                <p className="text-sm font-semibold text-white">v1.0</p>
+                <p className="text-xs text-white/60 mt-1">Initial release with GPT-5.2</p>
               </div>
             </div>
           </div>
@@ -235,7 +202,6 @@ export default function WelcomeScreen({ onNewChat }) {
               <div className="flex items-center gap-3 p-2 rounded-lg bg-white/5"><span className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white">E</span><span className="text-white/80">Energy</span></div>
               <div className="flex items-center gap-3 p-2 rounded-lg bg-white/5"><span className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white">R</span><span className="text-white/80">Robotics</span></div>
             </div>
-            <p className="text-xs text-white/40 text-center mt-4">The future of AI technology</p>
           </div>
         </div>
       )}
