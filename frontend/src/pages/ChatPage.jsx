@@ -1,54 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { chatApi } from '../lib/api';
 import Sidebar from '../components/chat/Sidebar';
 import ChatArea from '../components/chat/ChatArea';
 import WelcomeScreen from '../components/chat/WelcomeScreen';
-import { Menu, X, LogOut } from 'lucide-react';
-
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+import { Menu } from 'lucide-react';
 
 export default function ChatPage() {
   const { chatId } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   
   const [chats, setChats] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sendingMessage, setSendingMessage] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [user, setUser] = useState(location.state?.user || null);
-  const [checkingAuth, setCheckingAuth] = useState(!location.state?.user);
-
-  // Check auth on mount
-  useEffect(() => {
-    if (location.state?.user) {
-      setCheckingAuth(false);
-      return;
-    }
-    
-    const checkAuth = async () => {
-      try {
-        const response = await fetch(`${API_URL}/api/auth/me`, {
-          credentials: 'include'
-        });
-        if (response.ok) {
-          const userData = await response.json();
-          setUser(userData);
-        }
-      } catch (error) {
-        console.log('Not authenticated');
-      } finally {
-        setCheckingAuth(false);
-      }
-    };
-    checkAuth();
-  }, [location.state]);
 
   useEffect(() => {
     loadChats();
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     if (chatId) {
@@ -146,70 +116,6 @@ export default function ChatPage() {
     }
   };
 
-  const handleSuggestedPrompt = async (prompt) => {
-    try {
-      const newChat = await chatApi.createChat();
-      setChats(prev => [newChat, ...prev]);
-      navigate(`/chat/${newChat.id}`);
-      setTimeout(async () => {
-        setCurrentChat(newChat);
-        await handleSendMessageDirect(newChat.id, prompt);
-      }, 100);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  const handleSendMessageDirect = async (chatIdParam, content) => {
-    const userMessage = {
-      id: Date.now().toString(),
-      role: 'user',
-      content,
-      timestamp: new Date().toISOString()
-    };
-
-    setCurrentChat(prev => prev ? ({
-      ...prev,
-      messages: [...(prev.messages || []), userMessage]
-    }) : null);
-
-    setSendingMessage(true);
-
-    try {
-      const aiMessage = await chatApi.sendMessage(chatIdParam, content);
-      setCurrentChat(prev => prev ? ({
-        ...prev,
-        messages: [...prev.messages, aiMessage]
-      }) : null);
-      loadChats();
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-      setSendingMessage(false);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await fetch(`${API_URL}/api/auth/logout`, {
-        method: 'POST',
-        credentials: 'include'
-      });
-      setUser(null);
-      navigate('/');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
-
-  if (checkingAuth) {
-    return (
-      <div className="h-screen flex items-center justify-center bg-[#050505]">
-        <div className="animate-spin w-8 h-8 border-2 border-white border-t-transparent rounded-full"></div>
-      </div>
-    );
-  }
-
   return (
     <div className="h-[100dvh] flex bg-[#050505] overflow-hidden" data-testid="chat-page">
       {/* Mobile header */}
@@ -221,11 +127,7 @@ export default function ChatPage() {
           <span className="font-heading font-medium text-sm">
             {currentChat ? (currentChat.title?.slice(0, 25) + (currentChat.title?.length > 25 ? '...' : '')) : 'Aether'}
           </span>
-          {user && (
-            <button onClick={handleLogout} className="p-2 -mr-2 hover:bg-white/5 rounded-lg" title="Logout">
-              <LogOut size={20} strokeWidth={1.5} />
-            </button>
-          )}
+          <div className="w-10"></div>
         </div>
       </div>
 
@@ -244,8 +146,6 @@ export default function ChatPage() {
           onDeleteChat={handleDeleteChat}
           onClose={() => setSidebarOpen(false)}
           onGoHome={() => navigate('/')}
-          user={user}
-          onLogout={handleLogout}
         />
       </div>
 
@@ -259,11 +159,7 @@ export default function ChatPage() {
             onSendMessage={handleSendMessage}
           />
         ) : (
-          <WelcomeScreen
-            onNewChat={handleNewChat}
-            onSuggestedPrompt={handleSuggestedPrompt}
-            user={user}
-          />
+          <WelcomeScreen onNewChat={handleNewChat} />
         )}
       </main>
     </div>
