@@ -185,6 +185,7 @@ export default function ChatPage() {
           onDeleteChat={handleDeleteChat}
           onClose={() => setSidebarOpen(false)}
           onGoHome={() => navigate('/')}
+          onOpenSettings={() => { setSettingsOpen(true); setSidebarOpen(false); }}
         />
       </div>
 
@@ -196,6 +197,10 @@ export default function ChatPage() {
             loading={loading}
             sendingMessage={sendingMessage}
             onSendMessage={handleSendMessage}
+            showTyping={showTyping}
+            messageDensity={messageDensity}
+            fontSize={fontSize}
+            theme={theme}
           />
         ) : (
           <WelcomeScreen onNewChat={handleNewChat} />
