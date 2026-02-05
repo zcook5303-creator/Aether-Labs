@@ -101,3 +101,31 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+## user_problem_statement: "Aether Labs chat app with logo fix and settings menu"
+## backend: []
+## frontend:
+##   - task: "Logo SVG fix + settings menu (theme, density, font size, typing)"
+##     implemented: true
+##     working: true
+##     file: "src/components/chat/WelcomeScreen.jsx, src/components/chat/SplashScreen.jsx, src/pages/ChatPage.jsx, src/components/chat/Sidebar.jsx"
+##     stuck_count: 1
+##     priority: "high"
+##     needs_retesting: true
+##     status_history:
+##       - working: true
+##         agent: "main"
+##         comment: "Implemented correct trefoil logo SVG everywhere and added settings modal from sidebar with theme/density/font size/typing toggles. Basic manual UI check done; needs automated frontend pass."
+## metadata:
+##   created_by: "main_agent"
+##   version: "1.0"
+##   test_sequence: 1
+##   run_ui: true
+## test_plan:
+##   current_focus:
+##     - "Logo SVG fix + settings menu (theme, density, font size, typing)"
+##   stuck_tasks: []
+##   test_all: false
+##   test_priority: "high_first"
+## agent_communication:
+##   - agent: "main"
+##     message: "Please run a focused UI test: verify logo looks correct in splash/welcome, settings opens from sidebar, toggles persist via localStorage, and chat still works."
