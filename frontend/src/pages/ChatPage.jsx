@@ -165,6 +165,104 @@ export default function ChatPage() {
           </button>
           <span className="font-heading font-medium text-sm">
             {currentChat ? (currentChat.title?.slice(0, 25) + (currentChat.title?.length > 25 ? '...' : '')) : 'Aether'}
+      {settingsOpen && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setSettingsOpen(false)}>
+          <div className="bg-[#0f0f0f] border border-white/10 rounded-2xl max-w-md w-full p-6 text-white" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="font-heading text-lg font-semibold">Settings</h2>
+              <button onClick={() => setSettingsOpen(false)} className="text-white/60 hover:text-white">✕</button>
+            </div>
+
+            <div className="space-y-5 text-sm">
+              {/* Theme */}
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="font-medium">Appearance</p>
+                  <p className="text-xs text-white/50">Switch between dark and light mode.</p>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  <button
+                    onClick={() => {
+                      setTheme('dark');
+                      localStorage.setItem('aether-theme', 'dark');
+                    }}
+                    className={`px-3 py-1 rounded-full border text-xs ${theme === 'dark' ? 'bg-white text-black border-white' : 'border-white/30 text-white/70'}`}
+                  >
+                    Dark
+                  </button>
+                  <button
+                    onClick={() => {
+                      setTheme('light');
+                      localStorage.setItem('aether-theme', 'light');
+                    }}
+                    className={`px-3 py-1 rounded-full border text-xs ${theme === 'light' ? 'bg-white text-black border-white' : 'border-white/30 text-white/70'}`}
+                  >
+                    Light
+                  </button>
+                </div>
+              </div>
+
+              {/* Message Density */}
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="font-medium">Message Density</p>
+                  <p className="text-xs text-white/50">Choose how spaced out messages feel.</p>
+                </div>
+                <select
+                  value={messageDensity}
+                  onChange={(e) => {
+                    setMessageDensity(e.target.value);
+                    localStorage.setItem('aether-message-density', e.target.value);
+                  }}
+                  className="bg-[#151515] border border-white/20 rounded-md px-2 py-1 text-xs"
+                >
+                  <option value="comfortable">Comfortable</option>
+                  <option value="compact">Compact</option>
+                </select>
+              </div>
+
+              {/* Font Size */}
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="font-medium">Font Size</p>
+                  <p className="text-xs text-white/50">Adjust chat text size.</p>
+                </div>
+                <select
+                  value={fontSize}
+                  onChange={(e) => {
+                    setFontSize(e.target.value);
+                    localStorage.setItem('aether-font-size', e.target.value);
+                  }}
+                  className="bg-[#151515] border border-white/20 rounded-md px-2 py-1 text-xs"
+                >
+                  <option value="small">Small</option>
+                  <option value="medium">Medium</option>
+                  <option value="large">Large</option>
+                </select>
+              </div>
+
+              {/* Typing Indicator */}
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="font-medium">Typing Dots</p>
+                  <p className="text-xs text-white/50">Show or hide Aether's typing animation.</p>
+                </div>
+                <button
+                  onClick={() => {
+                    const next = !showTyping;
+                    setShowTyping(next);
+                    localStorage.setItem('aether-show-typing', String(next));
+                  }}
+                  className={`px-3 py-1 rounded-full border text-xs ${showTyping ? 'bg-white text-black border-white' : 'border-white/30 text-white/70'}`}
+                >
+                  {showTyping ? 'On' : 'Off'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
           </span>
           <div className="w-10"></div>
         </div>
