@@ -67,7 +67,7 @@ export default function WelcomeScreen({ onNewChat, theme = 'dark' }) {
           <button onClick={() => setModal('qr')} className={`w-full flex items-center justify-center gap-3 px-6 py-3 rounded-xl border transition-colors ${theme === 'light' ? 'border-zinc-200 text-zinc-700 hover:bg-zinc-100' : 'border-white/10 text-white/70 hover:bg-white/5 hover:text-white'}`} data-testid="qr-button">
             <QrCode size={20} />Share QR
           </button>
-          <button onClick={() => setModal('log')} className="w-full flex items-center justify-center gap-3 px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white/70 hover:text-white transition-colors" data-testid="update-log-button">
+          <button onClick={() => setModal('log')} className={`w-full flex items-center justify-center gap-3 px-6 py-3 rounded-xl border transition-colors ${theme === 'light' ? 'border-zinc-200 text-zinc-700 hover:bg-zinc-100' : 'border-white/10 text-white/70 hover:bg-white/5 hover:text-white'}`} data-testid="update-log-button">
             <ScrollText size={20} />Update Log
           </button>
         </div>
