@@ -209,10 +209,40 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
                 </div>
               </div>
 
+              {/* Upload input (only when editing) */}
+              {uploadMode && (
+                <div className="space-y-2 text-xs text-white/70">
+                  <label className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-dashed border-white/20 cursor-pointer hover:bg-white/5">
+                    <span className="text-sm">Import picture from photos</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          const result = reader.result;
+                          if (typeof result === 'string' && result.startsWith('data:image')) {
+                            const base64 = result.split(',')[1];
+                            setUploadedImageBase64(base64);
+                          }
+                        };
+                        reader.readAsDataURL(file);
+                      }}
+                    />
+                  </label>
+                  {uploadedImageBase64 && (
+                    <p className="text-[11px] text-emerald-400">Image loaded. The AI will edit this picture.</p>
+                  )}
+                </div>
+              )}
+
               <textarea
                 value={imagePrompt}
                 onChange={(e) => setImagePrompt(e.target.value)}
-                placeholder="Describe the image you want to create..."
+                placeholder={uploadMode ? 'Describe how you want to edit this picture...' : 'Describe the image you want to create...'}
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-indigo-500 resize-none h-24"
                 disabled={imageLoading}
               />
