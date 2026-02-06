@@ -142,11 +142,33 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
       {showImageGen && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => { setShowImageGen(false); setGeneratedImage(null); setImagePrompt(''); }}>
           <div className="bg-[#0f0f0f] border border-white/10 rounded-2xl max-w-lg w-full p-6" onClick={e => e.stopPropagation()}>
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-4">
               <h2 className="font-heading text-lg font-semibold text-white">Generate AI Image</h2>
               <button onClick={() => { setShowImageGen(false); setGeneratedImage(null); setImagePrompt(''); }}><X size={20} className="text-white/50" /></button>
             </div>
+
             <div className="space-y-4">
+              {/* Style selector */}
+              <div>
+                <p className="text-xs text-white/60 mb-1">Style</p>
+                <div className="flex flex-wrap gap-2 text-xs">
+                  {['None', 'Realistic', 'Pixel art', 'Anime', 'Sketch'].map((style) => (
+                    <button
+                      key={style}
+                      type="button"
+                      onClick={() => setImageStyle(style)}
+                      className={`px-3 py-1 rounded-full border transition-colors ${
+                        imageStyle === style
+                          ? 'bg-indigo-500 border-indigo-400 text-white'
+                          : 'border-white/20 text-white/70 hover:bg-white/5'
+                      }`}
+                    >
+                      {style}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <textarea
                 value={imagePrompt}
                 onChange={(e) => setImagePrompt(e.target.value)}
