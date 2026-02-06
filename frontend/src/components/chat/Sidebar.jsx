@@ -87,7 +87,15 @@ function ChatItem({ chat, isActive, onSelect, onDelete, theme = 'dark' }) {
       role="button"
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onSelect()}
-      className={`group flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors ${isActive ? 'bg-white/10' : 'hover:bg-white/5'}`}
+      className={`group flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer transition-colors ${
+        isActive
+          ? theme === 'light'
+            ? 'bg-zinc-200'
+            : 'bg-white/10'
+          : theme === 'light'
+            ? 'hover:bg-zinc-100'
+            : 'hover:bg-white/5'
+      }`}
       data-testid={`chat-item-${chat.id}`}
     >
       <MessageSquare size={16} className="text-white/40 shrink-0" />
