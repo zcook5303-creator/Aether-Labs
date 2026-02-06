@@ -60,6 +60,7 @@ export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat,
                 isActive={chat.id === currentChatId}
                 onSelect={() => onSelectChat(chat.id)}
                 onDelete={() => onDeleteChat(chat.id)}
+                theme={theme}
               />
             ))
           )}
