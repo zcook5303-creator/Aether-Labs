@@ -28,7 +28,7 @@ export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat,
       {/* Chat list */}
       <ScrollArea className="flex-1 px-2">
         <div className="space-y-0.5 py-2">
-          <p className="px-3 py-2 text-xs text-white/40 font-medium">Your Chats</p>
+          <p className={`px-3 py-2 text-xs font-medium ${theme === 'light' ? 'text-zinc-500' : 'text-white/40'}`}>Your Chats</p>
           {chats.length === 0 ? (
             <div className="px-3 py-6 text-center">
               <MessageSquare size={24} className="mx-auto mb-2 text-white/20" />
