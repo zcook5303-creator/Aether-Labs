@@ -262,16 +262,6 @@ async def edit_image(request: ImageEditRequest):
         logger.error(f"Error editing image: {e}")
         raise HTTPException(status_code=500, detail=f"Image edit failed: {str(e)}")
 
-        
-        if images and len(images) > 0:
-            image_base64 = base64.b64encode(images[0]).decode('utf-8')
-            return ImageGenerateResponse(image_base64=image_base64)
-        else:
-            raise HTTPException(status_code=500, detail="No image was generated")
-    except Exception as e:
-        logger.error(f"Error generating image: {e}")
-        raise HTTPException(status_code=500, detail=f"Image generation failed: {str(e)}")
-
 @api_router.post("/chats", response_model=ChatResponse)
 async def create_chat(chat_input: ChatCreate):
     chat = Chat(title=chat_input.title or "New Chat", user_id=chat_input.user_id)
