@@ -74,8 +74,8 @@ export default function WelcomeScreen({ onNewChat, theme = 'dark' }) {
 
         {/* Footer */}
         <div className="pt-4 space-y-2">
-          <button onClick={() => setModal('aether')} className="text-[11px] text-white/30 hover:text-white/60 transition-colors underline underline-offset-2" data-testid="aether-meaning-button">Aether?</button>
-          <p className="text-[11px] text-white/20">Founder: Zachary Cook</p>
+          <button onClick={() => setModal('aether')} className={`text-[11px] underline underline-offset-2 transition-colors ${theme === 'light' ? 'text-zinc-500 hover:text-zinc-700' : 'text-white/30 hover:text-white/60'}`} data-testid="aether-meaning-button">Aether?</button>
+          <p className={`text-[11px] ${theme === 'light' ? 'text-zinc-400' : 'text-white/20'}`}>Founder: Zachary Cook</p>
         </div>
       </div>
 
