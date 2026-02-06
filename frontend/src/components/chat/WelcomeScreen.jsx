@@ -49,8 +49,8 @@ export default function WelcomeScreen({ onNewChat, theme = 'dark' }) {
         {/* Logo */}
         <div className="flex flex-col items-center gap-4">
           <RadiationLogo size={70} />
-          <h1 className="font-heading text-3xl md:text-4xl font-medium text-white">Aether Labs</h1>
-          <p className="text-white/50">How can I help you today?</p>
+          <h1 className={`font-heading text-3xl md:text-4xl font-medium ${theme === 'light' ? 'text-zinc-900' : 'text-white'}`}>Aether Labs</h1>
+          <p className={theme === 'light' ? 'text-zinc-500' : 'text-white/50'}>How can I help you today?</p>
         </div>
 
         {/* Main Buttons */}
