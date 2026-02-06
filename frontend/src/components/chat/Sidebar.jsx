@@ -75,7 +75,7 @@ export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat,
   );
 }
 
-function ChatItem({ chat, isActive, onSelect, onDelete }) {
+function ChatItem({ chat, isActive, onSelect, onDelete, theme = 'dark' }) {
   const handleDelete = (e) => {
     e.stopPropagation();
     onDelete();
