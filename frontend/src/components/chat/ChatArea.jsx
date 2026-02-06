@@ -121,7 +121,7 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
               onKeyDown={handleKeyDown}
               placeholder="Message Aether..."
               rows={1}
-              className="w-full bg-transparent px-4 py-3 pr-14 text-[15px] resize-none placeholder:text-white/30 focus:outline-none max-h-[200px]"
+              className={`w-full bg-transparent px-4 py-3 pr-14 text-[15px] resize-none focus:outline-none max-h-[200px] ${theme === 'light' ? 'placeholder:text-zinc-400 text-zinc-900' : 'placeholder:text-white/30 text-white'}`}
               disabled={sendingMessage}
               data-testid="message-input"
             />
