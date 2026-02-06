@@ -49,6 +49,8 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
 
   const handleGenerateImage = async () => {
     if (!imagePrompt.trim() || imageLoading) return;
+    if (uploadMode && !uploadedImageBase64) return;
+
     setImageLoading(true);
     setGeneratedImage(null);
     try {
@@ -56,7 +58,16 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
       if (imageStyle && imageStyle !== 'None') {
         prompt = `${prompt} | Style: ${imageStyle}`;
       }
-      const result = await chatApi.generateImage(prompt);
+
+      let result;
+      if (uploadMode && uploadedImageBase64) {
+        // Edit existing image
+        result = await chatApi.editImage(prompt, uploadedImageBase64);
+      } else {
+        // Generate new image
+        result = await chatApi.generateImage(prompt);
+      }
+
       setGeneratedImage(result.image_base64);
     } catch (error) {
       console.error('Image generation error:', error);
