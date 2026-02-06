@@ -102,7 +102,7 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
       {/* Input */}
       <div className={`p-4 ${theme === 'light' ? 'bg-zinc-100' : 'bg-[#050505]'}`}>
         <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
-          <div className="relative bg-[#1a1a1a] border border-white/10 rounded-2xl">
+          <div className={`relative rounded-2xl border ${theme === 'light' ? 'bg-white border-zinc-200' : 'bg-[#1a1a1a] border-white/10'}`}>
             <div className="flex items-center gap-2 px-3 pt-3">
               <button
                 type="button"
