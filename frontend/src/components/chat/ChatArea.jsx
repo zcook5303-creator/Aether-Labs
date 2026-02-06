@@ -166,6 +166,28 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
             </div>
 
             <div className="space-y-4">
+              {/* Mode toggle */}
+              <div className="flex items-center gap-2 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setUploadMode(false)}
+                  className={`px-3 py-1 rounded-full border transition-colors ${
+                    !uploadMode ? 'bg-white text-black border-white' : 'border-white/30 text-white/70 hover:bg-white/5'
+                  }`}
+                >
+                  Generate new image
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setUploadMode(true)}
+                  className={`px-3 py-1 rounded-full border transition-colors ${
+                    uploadMode ? 'bg-white text-black border-white' : 'border-white/30 text-white/70 hover:bg-white/5'
+                  }`}
+                >
+                  Edit uploaded image
+                </button>
+              </div>
+
               {/* Style selector */}
               <div>
                 <p className="text-xs text-white/60 mb-1">Style</p>
