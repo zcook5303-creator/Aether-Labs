@@ -11,6 +11,8 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
   const [generatedImage, setGeneratedImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
   const [imageStyle, setImageStyle] = useState('None');
+  const [uploadMode, setUploadMode] = useState(false);
+  const [uploadedImageBase64, setUploadedImageBase64] = useState(null);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
 
