@@ -22,6 +22,15 @@ export const chatApi = {
     return response.data;
   },
 
+  // Edit an existing image with AI
+  editImage: async (prompt, imageBase64) => {
+    const response = await axios.post(`${API}/edit-image`, {
+      prompt,
+      image_base64: imageBase64,
+    });
+    return response.data;
+  },
+
   getChats: async () => {
     const userId = getUserId();
     const response = await axios.get(`${API}/chats?user_id=${userId}`);
