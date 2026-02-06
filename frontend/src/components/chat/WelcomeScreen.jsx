@@ -181,7 +181,7 @@ export default function WelcomeScreen({ onNewChat }) {
               <h2 className="font-heading text-lg font-semibold text-white">Share App</h2>
               <button onClick={closeModal}><X size={20} className="text-white/50" /></button>
             </div>
-            <div className="flex justify-center p-6 bg-white rounded-xl"><QRCodeSVG value={window.location.origin} size={180} /></div>
+            <div className="flex justify-center p-6 bg-white rounded-xl"><QRCodeSVG value={window.location.href} size={180} /></div>
             <p className="text-xs text-white/50 text-center mt-4">Scan to open Aether Labs</p>
           </div>
         </div>
