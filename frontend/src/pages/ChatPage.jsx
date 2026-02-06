@@ -284,6 +284,7 @@ export default function ChatPage() {
           onClose={() => setSidebarOpen(false)}
           onGoHome={() => navigate('/')}
           onOpenSettings={() => { setSettingsOpen(true); setSidebarOpen(false); }}
+          theme={theme}
         />
       </div>
 
