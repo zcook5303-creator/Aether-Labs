@@ -17,10 +17,28 @@ export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat,
           </Button>
           <button onClick={onClose} className="md:hidden p-2 hover:bg-white/5 rounded-lg"><X size={20} /></button>
         </div>
-        <Button onClick={onGoHome} variant="ghost" className="w-full justify-start gap-3 text-sm font-normal hover:bg-white/5 h-10 rounded-lg text-white/60" data-testid="home-button">
+        <Button
+          onClick={onGoHome}
+          variant="ghost"
+          className={`w-full justify-start gap-3 text-sm font-normal h-10 rounded-lg ${
+            theme === 'light'
+              ? 'text-zinc-700 hover:bg-zinc-100'
+              : 'text-white/60 hover:bg-white/5'
+          }`}
+          data-testid="home-button"
+        >
           <Home size={18} />Home
         </Button>
-        <Button onClick={onOpenSettings} variant="ghost" className="w-full justify-start gap-3 text-sm font-normal hover:bg-white/5 h-10 rounded-lg text-white/60" data-testid="settings-button">
+        <Button
+          onClick={onOpenSettings}
+          variant="ghost"
+          className={`w-full justify-start gap-3 text-sm font-normal h-10 rounded-lg ${
+            theme === 'light'
+              ? 'text-zinc-700 hover:bg-zinc-100'
+              : 'text-white/60 hover:bg-white/5'
+          }`}
+          data-testid="settings-button"
+        >
           <Settings size={18} />Settings
         </Button>
       </div>
