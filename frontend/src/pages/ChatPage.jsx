@@ -301,7 +301,7 @@ export default function ChatPage() {
             theme={theme}
           />
         ) : (
-          <WelcomeScreen onNewChat={handleNewChat} />
+          <WelcomeScreen onNewChat={handleNewChat} theme={theme} />
         )}
       </main>
     </div>
