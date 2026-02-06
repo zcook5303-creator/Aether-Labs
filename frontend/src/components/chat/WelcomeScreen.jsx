@@ -25,7 +25,7 @@ function RadiationLogo({ size = 70 }) {
   );
 }
 
-export default function WelcomeScreen({ onNewChat }) {
+export default function WelcomeScreen({ onNewChat, theme = 'dark' }) {
   const [modal, setModal] = useState(null);
   const [rating, setRating] = useState(0);
   const [submitted, setSubmitted] = useState(false);
@@ -44,8 +44,8 @@ export default function WelcomeScreen({ onNewChat }) {
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-4 py-8" data-testid="welcome-screen">
-      <div className="max-w-md w-full text-center space-y-6">
+    <div className={`flex-1 flex flex-col items-center justify-center px-4 py-8 ${theme === 'light' ? 'bg-zinc-100 text-zinc-900' : ''}`} data-testid="welcome-screen">
+      <div className={`max-w-md w-full text-center space-y-6 ${theme === 'light' ? 'bg-white/95 rounded-3xl shadow-xl px-6 py-8' : ''}`}>
         {/* Logo */}
         <div className="flex flex-col items-center gap-4">
           <RadiationLogo size={70} />
