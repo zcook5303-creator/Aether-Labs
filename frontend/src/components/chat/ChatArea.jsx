@@ -50,7 +50,11 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
     setImageLoading(true);
     setGeneratedImage(null);
     try {
-      const result = await chatApi.generateImage(imagePrompt);
+      let prompt = imagePrompt.trim();
+      if (imageStyle && imageStyle !== 'None') {
+        prompt = `${prompt} | Style: ${imageStyle}`;
+      }
+      const result = await chatApi.generateImage(prompt);
       setGeneratedImage(result.image_base64);
     } catch (error) {
       console.error('Image generation error:', error);
