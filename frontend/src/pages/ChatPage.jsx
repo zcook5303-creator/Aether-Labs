@@ -156,7 +156,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="h-[100dvh] flex bg-[#050505] overflow-hidden" data-testid="chat-page">
+    <div className={`h-[100dvh] flex overflow-hidden ${theme === 'light' ? 'bg-zinc-100 text-zinc-900' : 'bg-[#050505] text-white'}`} data-testid="chat-page">
       {/* Mobile header */}
       <div className="fixed top-0 left-0 right-0 z-50 md:hidden bg-[#050505] border-b border-white/5">
         <div className="flex items-center justify-between px-3 py-2.5">

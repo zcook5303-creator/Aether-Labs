@@ -3,9 +3,12 @@ import { Plus, MessageSquare, Trash2, X, Home, Settings } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { ScrollArea } from '../../components/ui/scroll-area';
 
-export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat, onDeleteChat, onClose, onGoHome, onOpenSettings }) {
+export default function Sidebar({ chats, currentChatId, onNewChat, onSelectChat, onDeleteChat, onClose, onGoHome, onOpenSettings, theme = 'dark' }) {
   return (
-    <aside className="w-[260px] h-full bg-[#0f0f0f] flex flex-col" data-testid="sidebar">
+    <aside
+      className={`w-[260px] h-full flex flex-col ${theme === 'light' ? 'bg-zinc-50 text-zinc-900 border-r border-zinc-200' : 'bg-[#0f0f0f]'}`}
+      data-testid="sidebar"
+    >
       {/* Header */}
       <div className="p-3 space-y-2">
         <div className="flex items-center gap-1">
