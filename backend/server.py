@@ -197,6 +197,10 @@ class ChatListItem(BaseModel):
 class ImageGenerateRequest(BaseModel):
     prompt: str
 
+class ImageEditRequest(BaseModel):
+    prompt: str
+    image_base64: str  # input image to edit
+
 class ImageGenerateResponse(BaseModel):
     image_base64: str
 
@@ -215,6 +219,39 @@ async def generate_image(request: ImageGenerateRequest):
             model="gpt-image-1",
             number_of_images=1
         )
+
+@api_router.post("/edit-image", response_model=ImageGenerateResponse)
+async def edit_image(request: ImageEditRequest):
+    """Edit an existing image using AI based on a text prompt"""
+    try:
+        if not request.image_base64:
+            raise HTTPException(status_code=400, detail="image_base64 is required")
+
+        # Decode incoming base64 image
+        try:
+            image_bytes = base64.b64decode(request.image_base64)
+        except Exception:
+            raise HTTPException(status_code=400, detail="Invalid base64 image data")
+
+        image_gen = OpenAIImageGeneration(api_key=EMERGENT_LLM_KEY)
+        images = await image_gen.generate_images(
+            prompt=f"Edit this image: {request.prompt}",
+            model="gpt-image-1",
+            number_of_images=1,
+            image_bytes=image_bytes
+        )
+
+        if images and len(images) > 0:
+            edited_base64 = base64.b64encode(images[0]).decode('utf-8')
+            return ImageGenerateResponse(image_base64=edited_base64)
+        else:
+            raise HTTPException(status_code=500, detail="No edited image was generated")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error editing image: {e}")
+        raise HTTPException(status_code=500, detail=f"Image edit failed: {str(e)}")
+
         
         if images and len(images) > 0:
             image_base64 = base64.b64encode(images[0]).decode('utf-8')
