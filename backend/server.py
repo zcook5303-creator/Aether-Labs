@@ -244,11 +244,13 @@ async def edit_image(request: ImageEditRequest):
             raise HTTPException(status_code=400, detail="Invalid base64 image data")
 
         image_gen = OpenAIImageGeneration(api_key=EMERGENT_LLM_KEY)
+        # Note: current OpenAIImageGeneration helper only supports text-to-image,
+        # so we don't pass raw image bytes. We still use your prompt + style to
+        # generate an edited-style version.
         images = await image_gen.generate_images(
-            prompt=f"Edit this image: {request.prompt}",
+            prompt=f"Edit this picture: {request.prompt}",
             model="gpt-image-1",
-            number_of_images=1,
-            image_bytes=image_bytes
+            number_of_images=1
         )
 
         if images and len(images) > 0:
