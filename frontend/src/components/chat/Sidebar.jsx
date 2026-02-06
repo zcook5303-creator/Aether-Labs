@@ -98,10 +98,24 @@ function ChatItem({ chat, isActive, onSelect, onDelete, theme = 'dark' }) {
       }`}
       data-testid={`chat-item-${chat.id}`}
     >
-      <MessageSquare size={16} className="text-white/40 shrink-0" />
-      <span className="flex-1 truncate text-sm text-white/80">{chat.title || 'New Chat'}</span>
-      <button onClick={handleDelete} className="opacity-0 group-hover:opacity-100 p-1 hover:bg-white/10 rounded" data-testid={`delete-chat-${chat.id}`}>
-        <Trash2 size={14} className="text-white/40 hover:text-red-400" />
+      <MessageSquare
+        size={16}
+        className={`${theme === 'light' ? 'text-zinc-500' : 'text-white/40'} shrink-0`}
+      />
+      <span className={`flex-1 truncate text-sm ${theme === 'light' ? 'text-zinc-800' : 'text-white/80'}`}>
+        {chat.title || 'New Chat'}
+      </span>
+      <button
+        onClick={handleDelete}
+        className={`opacity-0 group-hover:opacity-100 p-1 rounded ${
+          theme === 'light' ? 'hover:bg-zinc-200' : 'hover:bg-white/10'
+        }`}
+        data-testid={`delete-chat-${chat.id}`}
+      >
+        <Trash2
+          size={14}
+          className={theme === 'light' ? 'text-zinc-400 hover:text-red-400' : 'text-white/40 hover:text-red-400'}
+        />
       </button>
     </div>
   );
