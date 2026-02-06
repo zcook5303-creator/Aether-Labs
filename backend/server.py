@@ -220,6 +220,16 @@ async def generate_image(request: ImageGenerateRequest):
             number_of_images=1
         )
 
+        if images and len(images) > 0:
+            image_base64 = base64.b64encode(images[0]).decode('utf-8')
+            return ImageGenerateResponse(image_base64=image_base64)
+        else:
+            raise HTTPException(status_code=500, detail="No image was generated")
+    except Exception as e:
+        logger.error(f"Error generating image: {e}")
+        raise HTTPException(status_code=500, detail=f"Image generation failed: {str(e)}")
+
+
 @api_router.post("/edit-image", response_model=ImageGenerateResponse)
 async def edit_image(request: ImageEditRequest):
     """Edit an existing image using AI based on a text prompt"""
