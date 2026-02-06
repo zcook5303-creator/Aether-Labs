@@ -55,7 +55,7 @@ export default function WelcomeScreen({ onNewChat, theme = 'dark' }) {
 
         {/* Main Buttons */}
         <div className="space-y-3 pt-2">
-          <button onClick={onNewChat} className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-lg transition-colors" data-testid="new-chat-button">
+          <button onClick={onNewChat} className={`w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-medium text-lg transition-colors ${theme === 'light' ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`} data-testid="new-chat-button">
             <Plus size={22} />New Chat
           </button>
           <button onClick={() => setModal('team')} className="w-full flex items-center justify-center gap-3 px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white/70 hover:text-white transition-colors" data-testid="team-button">
