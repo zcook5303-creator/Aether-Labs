@@ -169,6 +169,148 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
             </button>
           </div>
           <p className="text-[11px] text-white/30 text-center mt-2">Aether can make mistakes. Check important info.</p>
+      {/* Video Generation Modal */}
+      {showVideoGen && (
+        <div
+          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4"
+          onClick={() => {
+            setShowVideoGen(false);
+            setGeneratedVideo(null);
+            setVideoPrompt('');
+            setVideoReferenceImageBase64(null);
+          }}
+        >
+          <div
+            className="bg-[#0f0f0f] border border-white/10 rounded-2xl max-w-xl w-full p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="font-heading text-lg font-semibold text-white">Generate AI Video</h2>
+              <button
+                onClick={() => {
+                  setShowVideoGen(false);
+                  setGeneratedVideo(null);
+                  setVideoPrompt('');
+                  setVideoReferenceImageBase64(null);
+                }}
+              >
+                <X size={20} className="text-white/50" />
+              </button>
+            </div>
+
+            <div className="space-y-4 text-sm">
+              <div className="space-y-1">
+                <p className="text-xs text-white/60">Video length</p>
+                <div className="flex gap-2 text-xs">
+                  {[4, 8, 12].map((d) => (
+                    <button
+                      key={d}
+                      type="button"
+                      onClick={() => setVideoDuration(d)}
+                      className={`px-3 py-1 rounded-full border transition-colors ${
+                        videoDuration === d
+                          ? 'bg-indigo-500 border-indigo-400 text-white'
+                          : 'border-white/20 text-white/70 hover:bg-white/5'
+                      }`}
+                    >
+                      {d}s
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2 text-xs text-white/70">
+                <label className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-dashed border-white/20 cursor-pointer hover:bg-white/5">
+                  <span className="text-sm">Optional: add reference image</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        const result = reader.result;
+                        if (typeof result === 'string' && result.startsWith('data:image')) {
+                          const base64 = result.split(',')[1];
+                          setVideoReferenceImageBase64(base64);
+                        }
+                      };
+                      reader.readAsDataURL(file);
+                    }}
+                  />
+                </label>
+                {videoReferenceImageBase64 && (
+                  <p className="text-[11px] text-emerald-400">Reference image loaded.</p>
+                )}
+              </div>
+
+              <textarea
+                value={videoPrompt}
+                onChange={(e) => setVideoPrompt(e.target.value)}
+                placeholder="Describe the 15s video you want (scene, characters, motion, dialog)."
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-indigo-500 resize-none h-24"
+                disabled={videoLoading}
+              />
+
+              <button
+                type="button"
+                onClick={async () => {
+                  if (!videoPrompt.trim() || videoLoading) return;
+                  setVideoLoading(true);
+                  setGeneratedVideo(null);
+                  try {
+                    const result = await chatApi.generateVideo({
+                      prompt: videoPrompt.trim(),
+                      duration: videoDuration,
+                      size: '1280x720',
+                      referenceImageBase64: videoReferenceImageBase64,
+                    });
+                    setGeneratedVideo(result.video_base64);
+                  } catch (err) {
+                    console.error('Video generation error:', err);
+                  } finally {
+                    setVideoLoading(false);
+                  }
+                }}
+                disabled={!videoPrompt.trim() || videoLoading}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-600/50 disabled:cursor-not-allowed text-white font-medium transition-colors"
+              >
+                {videoLoading ? (
+                  <>
+                    <Loader2 size={20} className="animate-spin" />
+                    Generating video...
+                  </>
+                ) : (
+                  <>
+                    <Film size={20} />
+                    Generate Video
+                  </>
+                )}
+              </button>
+
+              {generatedVideo && (
+                <div className="mt-4 space-y-2">
+                  <video
+                    controls
+                    className="w-full rounded-xl border border-white/10"
+                    src={`data:video/mp4;base64,${generatedVideo}`}
+                  />
+                  <a
+                    href={`data:video/mp4;base64,${generatedVideo}`}
+                    download="aether-video.mp4"
+                    className="block text-center text-indigo-400 text-sm mt-1 hover:underline"
+                  >
+                    Download video
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
         </form>
       </div>
 
