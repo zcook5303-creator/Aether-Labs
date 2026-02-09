@@ -264,6 +264,43 @@ async def edit_image(request: ImageEditRequest):
             number_of_images=1
         )
 
+
+@api_router.post("/generate-video", response_model=VideoGenerateResponse)
+async def generate_video(request: VideoGenerateRequest):
+    """Generate a short AI video with optional reference image."""
+    try:
+        if request.duration not in (4, 8, 12):
+            raise HTTPException(status_code=400, detail="duration must be 4, 8, or 12 seconds")
+
+        video_gen = OpenAIVideoGeneration(api_key=EMERGENT_LLM_KEY)
+
+        # Build prompt, including a hint about reference image usage
+        prompt = request.prompt.strip()
+        if request.reference_image_base64:
+            prompt = f"Use the uploaded image as visual reference. {prompt}"
+
+        # Synchronous call returning raw bytes
+        video_bytes = video_gen.text_to_video(
+            prompt=prompt,
+            model="sora-2",
+            size=request.size,
+            duration=request.duration,
+            max_wait_time=600,
+        )
+
+        if not video_bytes:
+            raise HTTPException(status_code=500, detail="Video generation failed")
+
+        # Return as base64 so frontend can play it directly
+        video_b64 = base64.b64encode(video_bytes).decode("utf-8")
+        return VideoGenerateResponse(video_base64=video_b64)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error generating video: {e}")
+        raise HTTPException(status_code=500, detail=f"Video generation failed: {str(e)}")
+
+
         if images and len(images) > 0:
             edited_base64 = base64.b64encode(images[0]).decode('utf-8')
             return ImageGenerateResponse(image_base64=edited_base64)
