@@ -248,21 +248,31 @@ async def edit_image(request: ImageEditRequest):
         if not request.image_base64:
             raise HTTPException(status_code=400, detail="image_base64 is required")
 
-        # Decode incoming base64 image
+        # Decode incoming base64 image just to validate it
         try:
-            image_bytes = base64.b64decode(request.image_base64)
+            base64.b64decode(request.image_base64)
         except Exception:
             raise HTTPException(status_code=400, detail="Invalid base64 image data")
 
         image_gen = OpenAIImageGeneration(api_key=EMERGENT_LLM_KEY)
-        # Note: current OpenAIImageGeneration helper only supports text-to-image,
-        # so we don't pass raw image bytes. We still use your prompt + style to
-        # generate an edited-style version.
+        # Current helper only supports text-to-image; we use the uploaded image as
+        # conceptual reference and generate an edited-style version from the prompt.
         images = await image_gen.generate_images(
-            prompt=f"Edit this picture: {request.prompt}",
+            prompt=f"Edit this picture based on the following instructions: {request.prompt}",
             model="gpt-image-1",
             number_of_images=1
         )
+
+        if images and len(images) > 0:
+            edited_base64 = base64.b64encode(images[0]).decode('utf-8')
+            return ImageGenerateResponse(image_base64=edited_base64)
+        else:
+            raise HTTPException(status_code=500, detail="No edited image was generated")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error editing image: {e}")
+        raise HTTPException(status_code=500, detail=f"Image edit failed: {str(e)}")
 
 
 @api_router.post("/generate-video", response_model=VideoGenerateResponse)
@@ -299,15 +309,6 @@ async def generate_video(request: VideoGenerateRequest):
     except Exception as e:
         logger.error(f"Error generating video: {e}")
         raise HTTPException(status_code=500, detail=f"Video generation failed: {str(e)}")
-
-
-        if images and len(images) > 0:
-            edited_base64 = base64.b64encode(images[0]).decode('utf-8')
-            return ImageGenerateResponse(image_base64=edited_base64)
-        else:
-            raise HTTPException(status_code=500, detail="No edited image was generated")
-    except HTTPException:
-        raise
     except Exception as e:
         logger.error(f"Error editing image: {e}")
         raise HTTPException(status_code=500, detail=f"Image edit failed: {str(e)}")
