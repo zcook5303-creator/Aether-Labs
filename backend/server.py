@@ -12,8 +12,10 @@ import uuid
 import base64
 import httpx
 from datetime import datetime, timezone, timedelta
+import asyncio
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 from emergentintegrations.llm.openai.image_generation import OpenAIImageGeneration
+from emergentintegrations.llm.openai.video_generation import OpenAIVideoGeneration
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -203,6 +205,15 @@ class ImageEditRequest(BaseModel):
 
 class ImageGenerateResponse(BaseModel):
     image_base64: str
+
+class VideoGenerateRequest(BaseModel):
+    prompt: str
+    duration: int = 4  # seconds (4, 8, or 12)
+    size: str = "1280x720"
+    reference_image_base64: Optional[str] = None
+
+class VideoGenerateResponse(BaseModel):
+    video_base64: str
 
 # Routes
 @api_router.get("/")
