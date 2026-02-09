@@ -31,6 +31,17 @@ export const chatApi = {
     return response.data;
   },
 
+  // Generate an AI video (up to 12 seconds)
+  generateVideo: async ({ prompt, duration = 4, size = '1280x720', referenceImageBase64 = null }) => {
+    const response = await axios.post(`${API}/generate-video`, {
+      prompt,
+      duration,
+      size,
+      reference_image_base64: referenceImageBase64,
+    });
+    return response.data;
+  },
+
   getChats: async () => {
     const userId = getUserId();
     const response = await axios.get(`${API}/chats?user_id=${userId}`);
