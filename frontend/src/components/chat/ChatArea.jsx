@@ -138,6 +138,15 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
               >
                 <Image size={20} />
               </button>
+              <button
+                type="button"
+                onClick={() => setShowVideoGen(true)}
+                className="p-2 rounded-lg hover:bg-white/10 text-white/50 hover:text-white transition-colors"
+                title="Generate Video"
+                data-testid="video-gen-button"
+              >
+                <Film size={20} />
+              </button>
             </div>
             <textarea
               ref={textareaRef}
