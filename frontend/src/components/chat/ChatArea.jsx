@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Loader2, ArrowUp, Image, X } from 'lucide-react';
+import { Loader2, ArrowUp, Image, X, Film } from 'lucide-react';
 import { ScrollArea } from '../../components/ui/scroll-area';
 import MessageBubble from './MessageBubble';
 import { chatApi } from '../../lib/api';
