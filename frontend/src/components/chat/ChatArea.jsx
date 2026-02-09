@@ -14,6 +14,12 @@ export default function ChatArea({ chat, loading, sendingMessage, onSendMessage,
   const [imageStyle, setImageStyle] = useState('None');
   const [uploadMode, setUploadMode] = useState(false);
   const [uploadedImageBase64, setUploadedImageBase64] = useState(null);
+
+  const [videoPrompt, setVideoPrompt] = useState('');
+  const [videoDuration, setVideoDuration] = useState(4);
+  const [videoLoading, setVideoLoading] = useState(false);
+  const [generatedVideo, setGeneratedVideo] = useState(null);
+  const [videoReferenceImageBase64, setVideoReferenceImageBase64] = useState(null);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
 
