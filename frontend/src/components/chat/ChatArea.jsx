@@ -7,6 +7,7 @@ import { chatApi } from '../../lib/api';
 export default function ChatArea({ chat, loading, sendingMessage, onSendMessage, showTyping = true, messageDensity = 'comfortable', fontSize = 'medium', theme = 'dark' }) {
   const [input, setInput] = useState('');
   const [showImageGen, setShowImageGen] = useState(false);
+  const [showVideoGen, setShowVideoGen] = useState(false);
   const [imagePrompt, setImagePrompt] = useState('');
   const [generatedImage, setGeneratedImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
